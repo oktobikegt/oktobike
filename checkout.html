@@ -93,11 +93,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--carbon);color:var(--white
 .success-orden strong{color:var(--cyan);}
 .success-sub{font-size:12px;color:var(--white3);line-height:1.6;margin-bottom:1.5rem;}
 .btn-success{background:var(--white);color:var(--carbon);border:none;border-radius:8px;padding:12px 24px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;cursor:pointer;}
+.pago-exitoso{background:rgba(46,196,182,0.1);border:1px solid rgba(46,196,182,0.3);border-radius:10px;padding:1rem 1.25rem;text-align:center;margin-bottom:1rem;display:none;}
+.pago-exitoso.show{display:block;}
+.pago-exitoso p{color:var(--cyan);font-size:13px;font-weight:500;}
 </style>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
 
-<!-- SUCCESS OVERLAY -->
 <div class="success-overlay" id="successOverlay">
   <div class="success-card">
     <div class="success-icon">✓</div>
@@ -128,15 +130,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--carbon);color:var(--white
   <div class="cs-sep"></div>
   <div class="cs-step active"><div class="cs-num">2</div><span class="cs-label">Entrega y pago</span></div>
   <div class="cs-sep"></div>
-  <div class="cs-step" id="step3"><div class="cs-num">3</div><span class="cs-label">Confirmación</span></div>
+  <div class="cs-step"><div class="cs-num">3</div><span class="cs-label">Confirmación</span></div>
 </div>
 
 <div class="checkout-layout">
   <div class="checkout-main">
-
+    <div class="pago-exitoso" id="pagoExitoso">
+      <p>✓ ¡Pago completado con tarjeta! Tu pedido ha sido confirmado.</p>
+    </div>
     <div id="errorMsg" class="error-msg"></div>
 
-    <!-- ENTREGA -->
     <div class="section-card">
       <div class="sc-title"><i class="ti ti-truck-delivery"></i>Método de <em>Entrega</em></div>
       <div class="del-opts">
@@ -159,52 +162,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--carbon);color:var(--white
           <div class="del-price">Q80</div>
         </div>
       </div>
-
       <div class="ship-form visible" id="shipForm">
         <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Nombre completo *</label>
-            <input class="form-input" id="shipNombre" type="text" placeholder="Nombre y apellido">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Teléfono / WhatsApp *</label>
-            <input class="form-input" id="shipTel" type="text" placeholder="+502 0000-0000">
-          </div>
+          <div class="form-group"><label class="form-label">Nombre completo *</label><input class="form-input" id="shipNombre" type="text" placeholder="Nombre y apellido"></div>
+          <div class="form-group"><label class="form-label">Teléfono / WhatsApp *</label><input class="form-input" id="shipTel" type="text" placeholder="+502 0000-0000"></div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Dirección *</label>
-          <input class="form-input" id="shipDireccion" type="text" placeholder="Calle, número, colonia">
-        </div>
+        <div class="form-group"><label class="form-label">Dirección *</label><input class="form-input" id="shipDireccion" type="text" placeholder="Calle, número, colonia"></div>
         <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Ciudad / Municipio *</label>
-            <input class="form-input" id="shipCiudad" type="text" placeholder="Guatemala">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Departamento</label>
-            <select class="form-input" id="shipDepto">
-              <option>Guatemala</option>
-              <option>Sacatepéquez</option>
-              <option>Quetzaltenango</option>
-              <option>Escuintla</option>
-              <option>Otro</option>
-            </select>
-          </div>
+          <div class="form-group"><label class="form-label">Ciudad / Municipio *</label><input class="form-input" id="shipCiudad" type="text" placeholder="Guatemala"></div>
+          <div class="form-group"><label class="form-label">Departamento</label><select class="form-input" id="shipDepto"><option>Guatemala</option><option>Sacatepéquez</option><option>Quetzaltenango</option><option>Escuintla</option><option>Otro</option></select></div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Referencia (opcional)</label>
-          <input class="form-input" id="shipRef" type="text" placeholder="Cerca de, frente a...">
-        </div>
+        <div class="form-group"><label class="form-label">Referencia (opcional)</label><input class="form-input" id="shipRef" type="text" placeholder="Cerca de, frente a..."></div>
       </div>
     </div>
 
-    <!-- PAGO -->
     <div class="section-card">
       <div class="sc-title"><i class="ti ti-credit-card"></i>Método de <em>Pago</em></div>
       <div class="pay-methods">
         <div class="pay-opt selected" onclick="selectPay(this,'tarjeta')">
           <div class="pay-icon"><i class="ti ti-credit-card"></i></div>
-          <div><span class="pay-label">Tarjeta</span><span class="pay-sub">Crédito / Débito</span></div>
+          <div><span class="pay-label">Tarjeta</span><span class="pay-sub">Vía Recurrente · Seguro</span></div>
         </div>
         <div class="pay-opt" onclick="selectPay(this,'transferencia')">
           <div class="pay-icon"><i class="ti ti-building-bank"></i></div>
@@ -220,12 +197,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--carbon);color:var(--white
         </div>
       </div>
       <div class="card-form visible" id="cardForm">
-        <div class="form-group"><label class="form-label">Número de tarjeta</label><input class="form-input" type="text" placeholder="0000  0000  0000  0000" maxlength="19"></div>
-        <div class="form-row">
-          <div class="form-group"><label class="form-label">Vencimiento</label><input class="form-input" type="text" placeholder="MM / AA" maxlength="7"></div>
-          <div class="form-group"><label class="form-label">CVV</label><input class="form-input" type="text" placeholder="000" maxlength="4"></div>
+        <div style="background:rgba(46,196,182,0.05);border:1px solid rgba(46,196,182,0.15);border-radius:8px;padding:0.875rem;display:flex;align-items:center;gap:10px;">
+          <i class="ti ti-shield-check" style="color:var(--cyan);font-size:18px;flex-shrink:0;"></i>
+          <div>
+            <div style="font-size:12px;font-weight:500;color:var(--white);margin-bottom:2px;">Pago seguro con Recurrente</div>
+            <div style="font-size:11px;color:var(--white3);font-weight:300;">Al confirmar serás redirigido a la página segura de Recurrente para ingresar tus datos de tarjeta.</div>
+          </div>
         </div>
-        <div class="form-group"><label class="form-label">Nombre en tarjeta</label><input class="form-input" type="text" placeholder="Como aparece en tu tarjeta"></div>
         <div class="card-logos"><span class="card-logo">VISA</span><span class="card-logo">MASTERCARD</span><span class="card-logo">AMEX</span></div>
       </div>
       <div class="coupon-row">
@@ -235,35 +213,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--carbon);color:var(--white
     </div>
   </div>
 
-  <!-- ORDER SUMMARY -->
   <div class="order-summary">
     <div class="os-title">Tu Pedido</div>
     <div class="os-items">
-      <div class="os-item">
-        <div class="oi-img">🌸</div>
-        <div class="oi-info"><div class="oi-name">Enterizo Floreado Manga Corta</div><div class="oi-meta">Talla M · GW · ×1</div></div>
-        <div class="oi-price" style="color:var(--cyan);">Q451</div>
-      </div>
-      <div class="os-item">
-        <div class="oi-img">🧤</div>
-        <div class="oi-info"><div class="oi-name">Guantes Largos Reflectivos</div><div class="oi-meta">Talla L · GW · ×1</div></div>
-        <div class="oi-price" style="color:var(--cyan);">Q243</div>
-      </div>
-      <div class="os-item">
-        <div class="oi-img">🧣</div>
-        <div class="oi-info"><div class="oi-name">Bandana FOX</div><div class="oi-meta">Unitalla · GW · ×2</div></div>
-        <div class="oi-price">Q120</div>
-      </div>
+      <div class="os-item"><div class="oi-img">🌸</div><div class="oi-info"><div class="oi-name">Enterizo Floreado Manga Corta</div><div class="oi-meta">Talla M · GW · x1</div></div><div class="oi-price" style="color:var(--cyan);">Q451</div></div>
+      <div class="os-item"><div class="oi-img">🧤</div><div class="oi-info"><div class="oi-name">Guantes Largos Reflectivos</div><div class="oi-meta">Talla L · GW · x1</div></div><div class="oi-price" style="color:var(--cyan);">Q243</div></div>
+      <div class="os-item"><div class="oi-img">🧣</div><div class="oi-info"><div class="oi-name">Bandana FOX</div><div class="oi-meta">Unitalla · GW · x2</div></div><div class="oi-price">Q120</div></div>
     </div>
     <div class="os-divider"></div>
     <div class="os-totals">
       <div class="ot-row"><span>Subtotal</span><span class="ot-val">Q814</span></div>
-      <div class="ot-row discount"><span>Descuentos aplicados</span><span class="ot-val">−Q106</span></div>
+      <div class="ot-row discount"><span>Descuentos aplicados</span><span class="ot-val">-Q106</span></div>
       <div class="ot-row"><span>Envío</span><span class="ot-val" id="shipCost">Q35</span></div>
       <div class="ot-row total"><span>Total</span><span class="ot-val" id="totalVal">Q743</span></div>
     </div>
     <button class="btn-comprar" id="btnComprar" onclick="confirmOrder()">
-      <i class="ti ti-lock"></i>Confirmar pedido
+      <i class="ti ti-credit-card"></i>Pagar con tarjeta
     </button>
     <div class="secure-note"><i class="ti ti-shield-check"></i>Pago 100% seguro y encriptado</div>
     <div style="border-top:1px solid var(--line);padding-top:1rem;">
@@ -273,59 +238,53 @@ body{font-family:'DM Sans',sans-serif;background:var(--carbon);color:var(--white
 </div>
 
 <script>
-let deliveryType = 'envio';
-let payType = 'tarjeta';
-let shipCostNum = 35;
+let deliveryType='envio', payType='tarjeta', shipCostNum=35;
 
-function selectDel(el, type){
+const urlParams=new URLSearchParams(window.location.search);
+if(urlParams.get('pago')==='exitoso') document.getElementById('pagoExitoso').classList.add('show');
+else if(urlParams.get('pago')==='cancelado') showError('El pago fue cancelado. Podés intentarlo de nuevo.');
+
+function selectDel(el,type){
   document.querySelectorAll('.del-opt').forEach(d=>d.classList.remove('selected'));
-  el.classList.add('selected');
-  deliveryType = type;
-  const sf = document.getElementById('shipForm');
-  sf.classList.toggle('visible', type==='envio'||type==='express');
-  const cost = type==='tienda'?'Gratis':type==='express'?'Q80':'Q35';
-  shipCostNum = type==='tienda'?0:type==='express'?80:35;
-  document.getElementById('shipCost').textContent = cost;
-  document.getElementById('totalVal').textContent = 'Q'+(743-35+shipCostNum);
+  el.classList.add('selected'); deliveryType=type;
+  document.getElementById('shipForm').classList.toggle('visible',type==='envio'||type==='express');
+  shipCostNum=type==='tienda'?0:type==='express'?80:35;
+  document.getElementById('shipCost').textContent=type==='tienda'?'Gratis':type==='express'?'Q80':'Q35';
+  document.getElementById('totalVal').textContent='Q'+(743-35+shipCostNum);
 }
 
-function selectPay(el, type){
+function selectPay(el,type){
   document.querySelectorAll('.pay-opt').forEach(p=>p.classList.remove('selected'));
-  el.classList.add('selected');
-  payType = type;
-  document.getElementById('cardForm').classList.toggle('visible', type==='tarjeta');
+  el.classList.add('selected'); payType=type;
+  document.getElementById('cardForm').classList.toggle('visible',type==='tarjeta');
+  document.getElementById('btnComprar').innerHTML=type==='tarjeta'?'<i class="ti ti-credit-card"></i>Pagar con tarjeta':'<i class="ti ti-lock"></i>Confirmar pedido';
 }
 
 function aplicarCupon(){
-  const code = document.getElementById('couponInput').value.trim().toUpperCase();
-  if(code==='OKTO10'){
-    showError('✓ Cupón aplicado: 10% de descuento', true);
-  } else if(code) {
-    showError('Código de descuento no válido.');
-  }
+  const code=document.getElementById('couponInput').value.trim().toUpperCase();
+  if(code==='OKTO10') showError('Cupon aplicado: 10% de descuento',true);
+  else if(code) showError('Codigo de descuento no valido.');
 }
 
-function showError(msg, isSuccess=false){
-  const el = document.getElementById('errorMsg');
-  el.textContent = msg;
-  el.style.display = 'block';
-  el.style.background = isSuccess ? 'rgba(46,196,182,0.1)' : 'rgba(224,48,48,0.1)';
-  el.style.borderColor = isSuccess ? 'rgba(46,196,182,0.3)' : 'rgba(224,48,48,0.3)';
-  el.style.color = isSuccess ? 'var(--cyan)' : 'var(--red)';
-  setTimeout(()=>{ el.style.display='none'; }, 4000);
+function showError(msg,isSuccess=false){
+  const el=document.getElementById('errorMsg');
+  el.textContent=msg; el.style.display='block';
+  el.style.background=isSuccess?'rgba(46,196,182,0.1)':'rgba(224,48,48,0.1)';
+  el.style.borderColor=isSuccess?'rgba(46,196,182,0.3)':'rgba(224,48,48,0.3)';
+  el.style.color=isSuccess?'var(--cyan)':'var(--red)';
+  if(!isSuccess) setTimeout(()=>{el.style.display='none';},5000);
 }
 
 function validateForm(){
-  const isDelivery = deliveryType==='envio'||deliveryType==='express';
-  if(isDelivery){
-    const nombre = document.getElementById('shipNombre').value.trim();
-    const tel = document.getElementById('shipTel').value.trim();
-    const dir = document.getElementById('shipDireccion').value.trim();
-    const ciudad = document.getElementById('shipCiudad').value.trim();
-    if(!nombre){ document.getElementById('shipNombre').classList.add('error'); showError('Por favor ingresá tu nombre completo.'); return false; }
-    if(!tel){ document.getElementById('shipTel').classList.add('error'); showError('Por favor ingresá tu teléfono o WhatsApp.'); return false; }
-    if(!dir){ document.getElementById('shipDireccion').classList.add('error'); showError('Por favor ingresá tu dirección de entrega.'); return false; }
-    if(!ciudad){ document.getElementById('shipCiudad').classList.add('error'); showError('Por favor ingresá tu ciudad.'); return false; }
+  if(deliveryType==='envio'||deliveryType==='express'){
+    const nombre=document.getElementById('shipNombre').value.trim();
+    const tel=document.getElementById('shipTel').value.trim();
+    const dir=document.getElementById('shipDireccion').value.trim();
+    const ciudad=document.getElementById('shipCiudad').value.trim();
+    if(!nombre){document.getElementById('shipNombre').classList.add('error');showError('Por favor ingresa tu nombre completo.');return false;}
+    if(!tel){document.getElementById('shipTel').classList.add('error');showError('Por favor ingresa tu telefono o WhatsApp.');return false;}
+    if(!dir){document.getElementById('shipDireccion').classList.add('error');showError('Por favor ingresa tu direccion de entrega.');return false;}
+    if(!ciudad){document.getElementById('shipCiudad').classList.add('error');showError('Por favor ingresa tu ciudad.');return false;}
   }
   document.querySelectorAll('.form-input.error').forEach(el=>el.classList.remove('error'));
   return true;
@@ -333,62 +292,62 @@ function validateForm(){
 
 async function confirmOrder(){
   if(!validateForm()) return;
+  const btn=document.getElementById('btnComprar');
+  btn.disabled=true;
+  btn.innerHTML='<i class="ti ti-loader"></i>Procesando...';
 
-  const btn = document.getElementById('btnComprar');
-  btn.disabled = true;
-  btn.innerHTML = '<i class="ti ti-loader" style="animation:spin 1s linear infinite"></i>Procesando...';
+  const nombre=document.getElementById('shipNombre')?.value.trim()||'Cliente en tienda';
+  const tel=document.getElementById('shipTel')?.value.trim()||'';
+  const dir=document.getElementById('shipDireccion')?.value.trim()||'';
+  const ciudad=document.getElementById('shipCiudad')?.value.trim()||'';
+  const depto=document.getElementById('shipDepto')?.value||'';
+  const total=parseInt(document.getElementById('totalVal').textContent.replace('Q','').replace(',',''));
 
-  const orden = 'OKT-' + Date.now().toString().slice(-6);
-  const nombre = document.getElementById('shipNombre')?.value.trim() || 'Cliente en tienda';
-  const tel = document.getElementById('shipTel')?.value.trim() || '';
-  const dir = document.getElementById('shipDireccion')?.value.trim() || '';
-  const ciudad = document.getElementById('shipCiudad')?.value.trim() || '';
-  const depto = document.getElementById('shipDepto')?.value || '';
-  const ref = document.getElementById('shipRef')?.value.trim() || '';
-  const total = parseInt(document.getElementById('totalVal').textContent.replace('Q','').replace(',',''));
+  const items=[
+    {name:'Enterizo Floreado Manga Corta',precio:451,cantidad:1},
+    {name:'Guantes Largos Reflectivos',precio:243,cantidad:1},
+    {name:'Bandana FOX',precio:60,cantidad:2},
+  ];
+  if(shipCostNum>0) items.push({name:'Envio a domicilio',precio:shipCostNum,cantidad:1});
 
-  // Guardar en Sanity
-  try {
-    const doc = {
-      _type: 'pedido',
-      numeroPedido: orden,
-      estado: 'pendiente',
-      metodoPago: payType,
-      metodoEntrega: deliveryType,
-      total: total,
-      direccion: `${nombre} · ${tel} · ${dir}, ${ciudad}, ${depto}${ref?' · Ref: '+ref:''}`,
-      fecha: new Date().toISOString(),
-    };
-    await fetch('https://ii7zj7va.api.sanity.io/v2024-01-01/data/mutate/production', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ mutations: [{ create: doc }] })
-    });
-  } catch(e) {
-    console.log('Sanity save error:', e);
+  if(payType==='tarjeta'){
+    try{
+      const res=await fetch('/.netlify/functions/crear-checkout',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({items,total})
+      });
+      const data=await res.json();
+      if(data.checkout_url){
+        sessionStorage.setItem('pendingOrder',JSON.stringify({nombre,tel,dir,ciudad,depto,total,payType,deliveryType}));
+        window.location.href=data.checkout_url;
+        return;
+      } else {
+        showError('Error al conectar con el procesador de pagos. Intenta con otro metodo.');
+        btn.disabled=false;
+        btn.innerHTML='<i class="ti ti-credit-card"></i>Pagar con tarjeta';
+        return;
+      }
+    } catch(e){
+      showError('Error de conexion. Intenta con otro metodo de pago.');
+      btn.disabled=false;
+      btn.innerHTML='<i class="ti ti-credit-card"></i>Pagar con tarjeta';
+      return;
+    }
   }
 
-  // Notificar por WhatsApp
-  const items = 'Enterizo Floreado M, Guantes L, Bandana FOX x2';
-  const msg = encodeURIComponent(
-    `🛒 *Nuevo pedido Oktobike*\n` +
-    `Orden: *${orden}*\n` +
-    `Cliente: ${nombre}\n` +
-    `Tel: ${tel}\n` +
-    `Entrega: ${deliveryType==='tienda'?'Retiro en tienda':deliveryType==='express'?'Express':'Envío a domicilio'}\n` +
-    `${dir?'Dir: '+dir+', '+ciudad+', '+depto+'\n':''}` +
-    `Pago: ${payType}\n` +
-    `Total: Q${total}\n` +
-    `Productos: ${items}`
-  );
+  const orden='OKT-'+Date.now().toString().slice(-6);
+  try{
+    await fetch('https://ii7zj7va.api.sanity.io/v2024-01-01/data/mutate/production',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({mutations:[{create:{_type:'pedido',numeroPedido:orden,estado:'pendiente',metodoPago:payType,metodoEntrega:deliveryType,total:total,direccion:nombre+' - '+tel+' - '+dir+', '+ciudad+', '+depto,fecha:new Date().toISOString()}}]})
+    });
+  } catch(e){console.log('Sanity error:',e);}
 
-  // Mostrar éxito
-  document.getElementById('ordenNumero').textContent = orden;
+  const msg=encodeURIComponent('Nuevo pedido Oktobike\nOrden: '+orden+'\nCliente: '+nombre+'\nTel: '+tel+'\nEntrega: '+(deliveryType==='tienda'?'Retiro en tienda':deliveryType==='express'?'Express':'Envio')+'\n'+(dir?'Dir: '+dir+', '+ciudad+'\n':'')+'Pago: '+payType+'\nTotal: Q'+total);
+  document.getElementById('ordenNumero').textContent=orden;
   document.getElementById('successOverlay').classList.add('show');
-
-  // Abrir WhatsApp
-  setTimeout(()=>{
-    window.open(`https://wa.me/50252490106?text=${msg}`, '_blank');
-  }, 1000);
+  setTimeout(()=>{window.open('https://wa.me/50252490106?text='+msg,'_blank');},1000);
 }
 </script>
