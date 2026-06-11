@@ -1,0 +1,368 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--carbon:#0e0e10;--carbon2:#141416;--carbon3:#1c1c1f;--carbon4:#242428;--carbon5:#2e2e33;--line:#ffffff0f;--line2:#ffffff18;--line3:#ffffff28;--cyan:#2ec4b6;--red:#e03030;--white:#f5f5f5;--white2:#a0a0a8;--white3:#5a5a62;}
+body{font-family:'DM Sans',sans-serif;background:var(--carbon);color:var(--white);min-height:100vh;}
+
+.nav{background:rgba(14,14,16,0.97);border-bottom:1px solid var(--line);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--white);}
+.nav-logo .ac{color:var(--cyan);}.nav-logo .sh{color:var(--red);font-size:14px;}
+.nav-back{display:flex;align-items:center;gap:6px;color:var(--white2);font-size:12px;cursor:pointer;background:transparent;border:none;font-family:'DM Sans',sans-serif;}
+.nav-back i{font-size:14px;}
+
+/* LAYOUT */
+.auth-layout{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 58px);}
+
+/* LEFT PANEL */
+.auth-left{background:var(--carbon2);border-right:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;padding:3rem 2.5rem;position:relative;overflow:hidden;}
+.al-glow{position:absolute;top:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(46,196,182,0.05) 0%,transparent 70%);pointer-events:none;}
+.al-glow2{position:absolute;bottom:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(224,48,48,0.04) 0%,transparent 70%);pointer-events:none;}
+.al-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:1.25rem;}
+.al-line{width:18px;height:1px;background:var(--cyan);}
+.al-eye{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);font-weight:500;}
+.al-title{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--white);line-height:0.95;margin-bottom:1rem;letter-spacing:1px;}
+.al-title em{color:var(--cyan);font-style:normal;}
+.al-desc{color:var(--white2);font-size:13px;line-height:1.7;font-weight:300;margin-bottom:2.5rem;max-width:340px;}
+.al-benefits{display:flex;flex-direction:column;gap:12px;}
+.al-benefit{display:flex;align-items:center;gap:12px;}
+.alb-icon{width:34px;height:34px;border-radius:8px;background:rgba(46,196,182,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.alb-icon i{color:var(--cyan);font-size:15px;}
+.alb-text{font-size:12px;color:var(--white2);font-weight:300;line-height:1.4;}
+.alb-text strong{color:var(--white);font-weight:500;}
+
+/* RIGHT PANEL — FORM */
+.auth-right{display:flex;align-items:center;justify-content:center;padding:2rem;}
+.auth-card{width:100%;max-width:380px;}
+
+/* TABS */
+.auth-tabs{display:flex;background:var(--carbon3);border:1px solid var(--line);border-radius:10px;padding:4px;margin-bottom:1.75rem;}
+.auth-tab{flex:1;padding:9px;text-align:center;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;border-radius:7px;color:var(--white3);border:none;background:transparent;transition:all 0.2s;letter-spacing:0.3px;}
+.auth-tab.active{background:var(--white);color:var(--carbon);}
+
+/* FORM */
+.form-group{margin-bottom:1rem;}
+.form-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--white3);margin-bottom:6px;display:block;}
+.form-input-wrap{position:relative;}
+.form-input{width:100%;background:var(--carbon3);border:1px solid var(--line2);border-radius:9px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--white);outline:none;transition:border-color 0.2s;}
+.form-input:focus{border-color:rgba(46,196,182,0.3);}
+.form-input::placeholder{color:var(--white3);}
+.input-icon{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--white3);font-size:16px;cursor:pointer;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.forgot{font-size:11px;color:var(--cyan);cursor:pointer;text-align:right;margin-top:-6px;margin-bottom:1rem;font-weight:500;}
+
+/* DIVIDER */
+.auth-divider{display:flex;align-items:center;gap:10px;margin:1.25rem 0;}
+.div-line{flex:1;height:1px;background:var(--line2);}
+.div-text{font-size:11px;color:var(--white3);font-weight:300;}
+
+/* SOCIAL */
+.social-btns{display:flex;flex-direction:column;gap:8px;}
+.btn-social{width:100%;background:var(--carbon3);border:1px solid var(--line2);border-radius:9px;padding:11px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;color:var(--white2);display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.2s;}
+.btn-social:hover{border-color:var(--line3);color:var(--white);}
+.btn-social i{font-size:18px;}
+
+/* PRIMARY BTN */
+.btn-primary{width:100%;background:var(--white);color:var(--carbon);border:none;border-radius:9px;padding:13px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;margin-bottom:1rem;}
+.btn-primary:hover{background:var(--white2);}
+
+/* TERMS */
+.terms-text{font-size:11px;color:var(--white3);text-align:center;line-height:1.6;font-weight:300;}
+.terms-text span{color:var(--cyan);cursor:pointer;}
+
+/* SUCCESS */
+.success-state{display:none;text-align:center;padding:2rem 0;}
+.success-icon{width:60px;height:60px;border-radius:50%;background:rgba(46,196,182,0.1);border:1px solid rgba(46,196,182,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;}
+.success-icon i{color:var(--cyan);font-size:26px;}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--white);letter-spacing:1px;margin-bottom:0.5rem;}
+.success-sub{font-size:13px;color:var(--white2);font-weight:300;line-height:1.6;}
+.btn-goto{width:100%;background:var(--cyan);color:var(--carbon);border:none;border-radius:9px;padding:13px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;cursor:pointer;margin-top:1.5rem;}
+
+/* PASSWORD STRENGTH */
+.pwd-strength{margin-top:6px;display:none;}
+.pwd-strength.visible{display:block;}
+.pwd-bars{display:flex;gap:3px;margin-bottom:4px;}
+.pwd-bar{flex:1;height:3px;border-radius:2px;background:var(--carbon5);transition:background 0.3s;}
+.pwd-bar.weak{background:var(--red);}
+.pwd-bar.medium{background:#f0a500;}
+.pwd-bar.strong{background:var(--cyan);}
+.pwd-label{font-size:10px;color:var(--white3);}
+</style>
+
+<h2 class="sr-only">Iniciar sesión o registrarse en Oktobike Shop</h2>
+
+<nav class="nav">
+  <div class="nav-logo" onclick="window.location='index.html'" style="cursor:pointer;">OKTO<span class="ac">BIKE</span> <span class="sh">SHOP</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Inicio</a></li>
+    <li><a href="tienda.html">Tienda</a></li>
+    <li><a href="taller.html">Taller</a></li>
+    <li><a href="#">Marcas</a></li>
+    <li><a href="mi_bici.html">Mi Bici</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-ghost" onclick="window.location='login.html'"><i class="ti ti-user" style="font-size:12px;margin-right:4px" aria-hidden="true"></i>Mi cuenta</button>
+    <button class="btn-cart" onclick="window.location='checkout.html'"><i class="ti ti-shopping-cart" aria-hidden="true"></i>Carrito<span class="cart-dot" id="cartCount">0</span></button>
+  </div>
+</nav>
+
+<div class="auth-layout">
+
+  <!-- LEFT -->
+  <div class="auth-left">
+    <div class="al-glow"></div><div class="al-glow2"></div>
+    <div class="al-eyebrow"><div class="al-line"></div><span class="al-eye">Tu cuenta Oktobike</span></div>
+    <h1 class="al-title">TU BICI,<br>TU <em>HISTORIAL</em>,<br>TODO EN UN<br>LUGAR.</h1>
+    <p class="al-desc">Creá tu cuenta y accedé a seguimiento de taller, historial de servicios, pedidos y próximamente el Club Oktobike.</p>
+    <div class="al-benefits">
+      <div class="al-benefit">
+        <div class="alb-icon"><i class="ti ti-map-search" aria-hidden="true"></i></div>
+        <div class="alb-text"><strong>Tracking en tiempo real</strong> — Seguí el estado de tu bici en el taller</div>
+      </div>
+      <div class="al-benefit">
+        <div class="alb-icon"><i class="ti ti-bike" aria-hidden="true"></i></div>
+        <div class="alb-text"><strong>Mi Bici</strong> — Registrá tus bicicletas y llevá el historial completo</div>
+      </div>
+      <div class="al-benefit">
+        <div class="alb-icon"><i class="ti ti-package" aria-hidden="true"></i></div>
+        <div class="alb-text"><strong>Mis pedidos</strong> — Revisá y repetí tus compras fácilmente</div>
+      </div>
+      <div class="al-benefit">
+        <div class="alb-icon"><i class="ti ti-crown" aria-hidden="true"></i></div>
+        <div class="alb-text"><strong>Club Oktobike</strong> — Próximamente: membresía con descuentos exclusivos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="auth-right">
+    <div class="auth-card">
+
+      <!-- TABS -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchAuth('login')">Iniciar sesión</button>
+        <button class="auth-tab" id="tabRegister" onclick="switchAuth('register')">Crear cuenta</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="formLogin">
+        <div class="form-group">
+          <label class="form-label">Correo electrónico</label>
+          <div class="form-input-wrap">
+            <input class="form-input" type="email" placeholder="tu@email.com" id="loginEmail">
+            <i class="ti ti-mail input-icon" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contraseña</label>
+          <div class="form-input-wrap">
+            <input class="form-input" type="password" placeholder="Tu contraseña" id="loginPwd" style="padding-right:40px;">
+            <i class="ti ti-eye input-icon" aria-hidden="true" onclick="togglePwd('loginPwd',this)"></i>
+          </div>
+        </div>
+        <div class="forgot">¿Olvidaste tu contraseña?</div>
+        <button class="btn-primary" onclick="doLogin()">
+          <i class="ti ti-login" aria-hidden="true"></i>Iniciar sesión
+        </button>
+
+        <div class="auth-divider"><div class="div-line"></div><span class="div-text">o continuá con</span><div class="div-line"></div></div>
+        <div class="social-btns">
+          <button class="btn-social" onclick="loginWithGoogle()"><i class="ti ti-brand-google" aria-hidden="true"></i>Continuar con Google</button>
+          <button class="btn-social"><i class="ti ti-brand-facebook" aria-hidden="true"></i>Continuar con Facebook</button>
+        </div>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="formRegister" style="display:none;">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nombre</label>
+            <input class="form-input" type="text" placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Apellido</label>
+            <input class="form-input" type="text" placeholder="Tu apellido">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Correo electrónico</label>
+          <div class="form-input-wrap">
+            <input class="form-input" type="email" placeholder="tu@email.com">
+            <i class="ti ti-mail input-icon" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Teléfono / WhatsApp</label>
+          <div class="form-input-wrap">
+            <input class="form-input" type="text" placeholder="+502 0000-0000">
+            <i class="ti ti-brand-whatsapp input-icon" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contraseña</label>
+          <div class="form-input-wrap">
+            <input class="form-input" type="password" placeholder="Mínimo 8 caracteres" id="regPwd" oninput="checkStrength(this.value)" style="padding-right:40px;">
+            <i class="ti ti-eye input-icon" aria-hidden="true" onclick="togglePwd('regPwd',this)"></i>
+          </div>
+          <div class="pwd-strength" id="pwdStrength">
+            <div class="pwd-bars">
+              <div class="pwd-bar" id="bar1"></div>
+              <div class="pwd-bar" id="bar2"></div>
+              <div class="pwd-bar" id="bar3"></div>
+              <div class="pwd-bar" id="bar4"></div>
+            </div>
+            <div class="pwd-label" id="pwdLabel">Contraseña débil</div>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="doRegister()">
+          <i class="ti ti-user-plus" aria-hidden="true"></i>Crear mi cuenta
+        </button>
+        <p class="terms-text">Al registrarte aceptás nuestros <span>términos de uso</span> y <span>política de privacidad</span>.</p>
+
+        <div class="auth-divider"><div class="div-line"></div><span class="div-text">o registrate con</span><div class="div-line"></div></div>
+        <div class="social-btns">
+          <button class="btn-social" onclick="loginWithGoogle()"><i class="ti ti-brand-google" aria-hidden="true"></i>Continuar con Google</button>
+        </div>
+      </div>
+
+      <!-- SUCCESS STATE -->
+      <div class="success-state" id="successState">
+        <div class="success-icon"><i class="ti ti-check" aria-hidden="true"></i></div>
+        <div class="success-title">¡BIENVENIDO!</div>
+        <p class="success-sub" id="successMsg">Sesión iniciada correctamente.<br>Redirigiendo a tu cuenta...</p>
+        <button class="btn-goto" onclick="window.location='mi_bici.html'">Ir a Mi Bici →</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCoouJb87PNNMTopFXnDGYkdfiIU83QGJ4",
+  authDomain: "oktobike.firebaseapp.com",
+  projectId: "oktobike",
+  storageBucket: "oktobike.firebasestorage.app",
+  messagingSenderId: "918007625565",
+  appId: "1:918007625565:web:e98cb58c9ccfe17e2c5ab4"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+// Hacer funciones globales
+window.switchAuth = function(mode){
+  document.getElementById('tabLogin').classList.toggle('active', mode==='login');
+  document.getElementById('tabRegister').classList.toggle('active', mode==='register');
+  document.getElementById('formLogin').style.display = mode==='login'?'block':'none';
+  document.getElementById('formRegister').style.display = mode==='register'?'block':'none';
+  document.getElementById('successState').style.display='none';
+}
+
+window.togglePwd = function(id, icon){
+  const input=document.getElementById(id);
+  const isText=input.type==='text';
+  input.type=isText?'password':'text';
+  icon.className=isText?'ti ti-eye input-icon':'ti ti-eye-off input-icon';
+}
+
+window.checkStrength = function(val){
+  const el=document.getElementById('pwdStrength');
+  el.classList.add('visible');
+  const bars=[1,2,3,4].map(i=>document.getElementById('bar'+i));
+  bars.forEach(b=>{b.className='pwd-bar';});
+  let score=0;
+  if(val.length>=8) score++;
+  if(/[A-Z]/.test(val)) score++;
+  if(/[0-9]/.test(val)) score++;
+  if(/[^A-Za-z0-9]/.test(val)) score++;
+  const cls=score<=1?'weak':score<=2?'medium':'strong';
+  const labels={weak:'Contraseña débil',medium:'Contraseña regular',strong:'Contraseña fuerte'};
+  for(let i=0;i<score;i++) bars[i].classList.add(cls);
+  document.getElementById('pwdLabel').textContent=labels[cls]||'';
+  document.getElementById('pwdLabel').style.color=cls==='weak'?'var(--red)':cls==='medium'?'#f0a500':'var(--cyan)';
+}
+
+function showSuccess(msg){
+  document.getElementById('formLogin').style.display='none';
+  document.getElementById('formRegister').style.display='none';
+  const s=document.getElementById('successState');
+  s.style.display='block';
+  document.getElementById('successMsg').textContent=msg;
+  setTimeout(()=>{ window.location='mi_bici.html'; }, 2000);
+}
+
+function showError(msg){
+  let el=document.getElementById('authError');
+  if(!el){
+    el=document.createElement('div');
+    el.id='authError';
+    el.style.cssText='background:rgba(224,48,48,0.1);border:1px solid rgba(224,48,48,0.3);border-radius:8px;padding:10px 14px;font-size:12px;color:#e03030;margin-bottom:1rem;text-align:center;';
+    document.querySelector('#formLogin .btn-primary') ? 
+      document.querySelector('#formLogin').insertBefore(el, document.querySelector('#formLogin .btn-primary')) :
+      document.querySelector('#formRegister').insertBefore(el, document.querySelector('#formRegister .btn-primary'));
+  }
+  el.textContent=msg;
+  el.style.display='block';
+}
+
+window.doLogin = async function(){
+  const email=document.getElementById('loginEmail').value.trim();
+  const pwd=document.getElementById('loginPwd').value;
+  if(!email||!pwd){ showError('Completá todos los campos'); return; }
+  try {
+    const btn=document.querySelector('#formLogin .btn-primary');
+    btn.textContent='Ingresando...'; btn.disabled=true;
+    await signInWithEmailAndPassword(auth, email, pwd);
+    showSuccess('¡Bienvenido de nuevo! Redirigiendo...');
+  } catch(e) {
+    const msgs={
+      'auth/user-not-found':'No existe una cuenta con ese correo.',
+      'auth/wrong-password':'Contraseña incorrecta.',
+      'auth/invalid-email':'El correo no es válido.',
+      'auth/invalid-credential':'Correo o contraseña incorrectos.',
+    };
+    showError(msgs[e.code]||'Error al iniciar sesión. Intentá de nuevo.');
+    const btn=document.querySelector('#formLogin .btn-primary');
+    btn.innerHTML='<i class="ti ti-login"></i>Iniciar sesión'; btn.disabled=false;
+  }
+}
+
+window.doRegister = async function(){
+  const nombre=document.querySelectorAll('#formRegister input[type=text]')[0]?.value.trim();
+  const apellido=document.querySelectorAll('#formRegister input[type=text]')[1]?.value.trim();
+  const email=document.querySelector('#formRegister input[type=email]').value.trim();
+  const pwd=document.getElementById('regPwd').value;
+  if(!nombre||!email||!pwd){ showError('Completá todos los campos obligatorios'); return; }
+  if(pwd.length<6){ showError('La contraseña debe tener al menos 6 caracteres'); return; }
+  try {
+    const btn=document.querySelector('#formRegister .btn-primary');
+    btn.textContent='Creando cuenta...'; btn.disabled=true;
+    const cred = await createUserWithEmailAndPassword(auth, email, pwd);
+    await updateProfile(cred.user, { displayName: nombre+' '+apellido });
+    showSuccess('¡Cuenta creada exitosamente! Redirigiendo...');
+  } catch(e) {
+    const msgs={
+      'auth/email-already-in-use':'Ya existe una cuenta con ese correo.',
+      'auth/invalid-email':'El correo no es válido.',
+      'auth/weak-password':'La contraseña es muy débil.',
+    };
+    showError(msgs[e.code]||'Error al crear la cuenta. Intentá de nuevo.');
+    const btn=document.querySelector('#formRegister .btn-primary');
+    btn.innerHTML='<i class="ti ti-user-plus"></i>Crear mi cuenta'; btn.disabled=false;
+  }
+}
+
+window.loginWithGoogle = async function(){
+  try {
+    await signInWithPopup(auth, provider);
+    showSuccess('¡Bienvenido! Redirigiendo...');
+  } catch(e) {
+    showError('Error al iniciar con Google. Intentá de nuevo.');
+  }
+}
+</script>

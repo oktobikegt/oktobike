@@ -1,0 +1,520 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--carbon:#0e0e10;--carbon2:#141416;--carbon3:#1c1c1f;--carbon4:#242428;--carbon5:#2e2e33;--line:#ffffff0f;--line2:#ffffff18;--line3:#ffffff28;--cyan:#2ec4b6;--red:#e03030;--white:#f5f5f5;--white2:#a0a0a8;--white3:#5a5a62;}
+body{font-family:'DM Sans',sans-serif;background:var(--carbon);color:var(--white);}
+
+.nav{background:rgba(14,14,16,0.97);border-bottom:1px solid var(--line);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--white);}
+.nav-logo .ac{color:var(--cyan);}.nav-logo .sh{color:var(--red);font-size:14px;}
+.nav-links{display:flex;gap:1.25rem;list-style:none;}
+.nav-links a{color:var(--white2);text-decoration:none;font-size:11px;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;}
+.nav-links a.active{color:var(--white);}
+.btn-ghost{background:transparent;color:var(--white2);border:1px solid var(--line2);border-radius:6px;padding:6px 13px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;cursor:pointer;}
+.btn-cart{background:var(--white);color:var(--carbon);border:none;border-radius:6px;padding:6px 14px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:6px;}
+.cart-dot{background:var(--red);color:white;border-radius:50%;width:15px;height:15px;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:700;}
+
+/* HERO TALLER */
+.taller-hero{background:var(--carbon2);border-bottom:1px solid var(--line);padding:2.5rem 1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+.th-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:0.875rem;}
+.th-line{width:18px;height:1px;background:var(--cyan);}
+.th-eye{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);font-weight:500;}
+.th-title{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--white);line-height:0.95;margin-bottom:0.875rem;}
+.th-title em{color:var(--cyan);font-style:normal;}
+.th-desc{color:var(--white2);font-size:13px;line-height:1.7;font-weight:300;margin-bottom:1.5rem;}
+.th-stats{display:flex;gap:2rem;}
+.ts-item{text-align:center;}
+.ts-n{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--cyan);display:block;line-height:1;}
+.ts-l{font-size:10px;color:var(--white3);text-transform:uppercase;letter-spacing:0.8px;}
+.services-mini{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.sm-item{background:var(--carbon3);border:1px solid var(--line);border-radius:10px;padding:1rem;cursor:pointer;transition:all 0.2s;}
+.sm-item:hover{border-color:rgba(46,196,182,0.2);}
+.sm-item.selected{border-color:rgba(46,196,182,0.3);background:rgba(46,196,182,0.04);}
+.sm-icon{color:var(--cyan);font-size:18px;margin-bottom:6px;}
+.sm-name{font-size:12px;font-weight:600;color:var(--white);margin-bottom:2px;}
+.sm-price{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--white2);}
+
+/* TABS */
+.page-tabs{display:flex;border-bottom:1px solid var(--line);background:var(--carbon2);padding:0 1.5rem;}
+.ptab{padding:1rem 1.25rem;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--white3);cursor:pointer;border:none;background:transparent;border-bottom:2px solid transparent;letter-spacing:0.5px;text-transform:uppercase;transition:all 0.2s;}
+.ptab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+.tab-panel{display:none;padding:1.5rem;}.tab-panel.active{display:block;}
+
+/* AGENDAR */
+.agenda-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.form-card{background:var(--carbon3);border:1px solid var(--line);border-radius:14px;padding:1.5rem;}
+.fc-title{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--white);letter-spacing:1px;margin-bottom:1.25rem;}
+.fc-title em{color:var(--cyan);font-style:normal;}
+.form-group{margin-bottom:1rem;}
+.form-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--white3);margin-bottom:6px;display:block;}
+.form-input{width:100%;background:var(--carbon4);border:1px solid var(--line2);border-radius:8px;padding:10px 13px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--white);outline:none;transition:border-color 0.2s;}
+.form-input:focus{border-color:rgba(46,196,182,0.3);}
+.form-input::placeholder{color:var(--white3);}
+select.form-input option{background:var(--carbon4);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.btn-agendar{width:100%;background:var(--white);color:var(--carbon);border:none;border-radius:8px;padding:13px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;cursor:pointer;margin-top:0.5rem;display:flex;align-items:center;justify-content:center;gap:8px;}
+
+/* CALENDAR PREVIEW */
+.cal-card{background:var(--carbon3);border:1px solid var(--line);border-radius:14px;padding:1.5rem;}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;}
+.cal-month{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--white);letter-spacing:1px;}
+.cal-nav{display:flex;gap:6px;}
+.cal-nav-btn{background:var(--carbon4);border:1px solid var(--line);border-radius:6px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--white2);font-size:13px;}
+.cal-days-header{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px;}
+.cal-day-name{text-align:center;font-size:10px;color:var(--white3);font-weight:600;letter-spacing:0.5px;padding:4px 0;}
+.cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--white2);border-radius:7px;cursor:pointer;transition:all 0.2s;font-weight:400;}
+.cal-day:hover:not(.empty):not(.past){background:var(--carbon4);color:var(--white);}
+.cal-day.past{color:var(--white3);cursor:default;opacity:0.4;}
+.cal-day.empty{cursor:default;}
+.cal-day.available{color:var(--white);}
+.cal-day.selected{background:var(--cyan);color:var(--carbon);font-weight:600;}
+.cal-day.today{border:1px solid var(--line3);color:var(--white);}
+.cal-legend{display:flex;gap:12px;margin-top:1rem;}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--white3);}
+.leg-dot{width:8px;height:8px;border-radius:50%;}
+
+/* TRACKING */
+.tracking-search{background:var(--carbon3);border:1px solid var(--line);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;display:flex;gap:10px;align-items:flex-end;}
+.tracking-search .form-group{flex:1;margin:0;}
+.btn-track{background:var(--cyan);color:var(--carbon);border:none;border-radius:8px;padding:10px 20px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap;height:40px;}
+
+.order-card{background:var(--carbon3);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:1rem;}
+.oc-header{background:var(--carbon4);padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);}
+.oc-id{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--white);letter-spacing:1px;}
+.oc-meta{font-size:11px;color:var(--white3);font-weight:300;margin-top:2px;}
+.status-badge{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;}
+.s-progress{background:rgba(46,196,182,0.1);color:var(--cyan);border:1px solid rgba(46,196,182,0.2);}
+.s-ready{background:rgba(46,196,182,0.15);color:var(--cyan);border:1px solid rgba(46,196,182,0.3);}
+.s-waiting{background:rgba(255,165,0,0.1);color:#f0a500;border:1px solid rgba(255,165,0,0.2);}
+.s-done{background:rgba(255,255,255,0.06);color:var(--white2);border:1px solid var(--line2);}
+
+.oc-body{padding:1.25rem;}
+.bici-info{display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;}
+.bici-icon{width:44px;height:44px;border-radius:10px;background:rgba(46,196,182,0.08);display:flex;align-items:center;justify-content:center;font-size:20px;}
+.bici-name{font-size:14px;font-weight:500;color:var(--white);}
+.bici-detail{font-size:11px;color:var(--white3);font-weight:300;margin-top:2px;}
+
+/* PROGRESS STEPS */
+.progress-steps{display:flex;align-items:flex-start;gap:0;margin-bottom:1.25rem;position:relative;}
+.progress-steps::before{content:'';position:absolute;top:14px;left:14px;right:14px;height:1px;background:var(--line2);z-index:0;}
+.step{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:1;}
+.step-circle{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;border:1.5px solid var(--line2);background:var(--carbon3);color:var(--white3);transition:all 0.3s;}
+.step.done .step-circle{background:var(--cyan);border-color:var(--cyan);color:var(--carbon);}
+.step.active .step-circle{background:var(--carbon4);border-color:var(--cyan);color:var(--cyan);}
+.step-label{font-size:10px;color:var(--white3);text-align:center;font-weight:400;line-height:1.3;}
+.step.done .step-label,.step.active .step-label{color:var(--white2);}
+.step-time{font-size:9px;color:var(--white3);text-align:center;font-weight:300;}
+
+.oc-notes{background:var(--carbon4);border-radius:8px;padding:0.875rem;border-left:2px solid var(--cyan);}
+.oc-notes-label{font-size:10px;color:var(--cyan);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px;}
+.oc-notes-text{font-size:12px;color:var(--white2);font-weight:300;line-height:1.5;}
+
+/* PRECIOS */
+.prices-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.price-card{background:var(--carbon3);border:1px solid var(--line);border-radius:12px;padding:1.25rem;transition:border-color 0.2s;}
+.price-card:hover{border-color:rgba(46,196,182,0.15);}
+.price-card.featured{border-color:rgba(46,196,182,0.2);background:rgba(46,196,182,0.03);}
+.pc-icon{width:40px;height:40px;border-radius:9px;background:rgba(46,196,182,0.08);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--cyan);margin-bottom:0.875rem;}
+.pc-name{font-size:14px;font-weight:600;color:var(--white);margin-bottom:4px;}
+.pc-desc{font-size:11px;color:var(--white3);font-weight:300;line-height:1.5;margin-bottom:0.875rem;}
+.pc-price{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--cyan);}
+.pc-price span{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--white3);font-weight:300;}
+.pc-includes{display:flex;flex-direction:column;gap:5px;margin-top:0.875rem;}
+.pc-inc{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--white2);font-weight:300;}
+.pc-inc i{color:var(--cyan);font-size:12px;}
+</style>
+
+<h2 class="sr-only">Taller Oktobike — Agenda tu servicio y rastrea tu bicicleta</h2>
+
+<nav class="nav">
+  <div class="nav-logo" onclick="window.location='index.html'" style="cursor:pointer;">OKTO<span class="ac">BIKE</span> <span class="sh">SHOP</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="tienda.html">Tienda</a></li>
+    <li><a href="taller.html" class="active">Taller</a></li>
+    <li><a href="#">Marcas</a></li>
+    <li><a href="mi_bici.html">Mi Bici</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-ghost" onclick="window.location='login.html'"><i class="ti ti-user" style="font-size:12px;margin-right:4px" aria-hidden="true"></i>Mi cuenta</button>
+    <button class="btn-cart" onclick="window.location='checkout.html'"><i class="ti ti-shopping-cart" aria-hidden="true"></i>Carrito<span class="cart-dot" id="cartCount">0</span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="taller-hero">
+  <div>
+    <div class="th-eyebrow"><div class="th-line"></div><span class="th-eye">Servicio especializado</span></div>
+    <h1 class="th-title">TALLER<br><em>OKTOBIKE</em></h1>
+    <p class="th-desc">Diagnóstico, mantenimiento y reparación profesional. Agendá tu cita en línea y seguí el estado de tu bicicleta en tiempo real desde tu cuenta.</p>
+    <div class="th-stats">
+      <div class="ts-item"><span class="ts-n">100%</span><span class="ts-l">Profesional</span></div>
+      <div class="ts-item"><span class="ts-n">24h</span><span class="ts-l">Diagnóstico</span></div>
+      <div class="ts-item"><span class="ts-n">★ 5</span><span class="ts-l">Calificación</span></div>
+    </div>
+  </div>
+  <div class="services-mini">
+    <div class="sm-item selected" onclick="selectService(this)">
+      <div class="sm-icon"><i class="ti ti-tool" aria-hidden="true"></i></div>
+      <div class="sm-name">Servicio básico</div>
+      <div class="sm-price">Desde Q150</div>
+    </div>
+    <div class="sm-item" onclick="selectService(this)">
+      <div class="sm-icon"><i class="ti ti-settings-2" aria-hidden="true"></i></div>
+      <div class="sm-name">Servicio completo</div>
+      <div class="sm-price">Desde Q350</div>
+    </div>
+    <div class="sm-item" onclick="selectService(this)">
+      <div class="sm-icon"><i class="ti ti-circle" aria-hidden="true"></i></div>
+      <div class="sm-name">Cambio de llantas</div>
+      <div class="sm-price">Desde Q80</div>
+    </div>
+    <div class="sm-item" onclick="selectService(this)">
+      <div class="sm-icon"><i class="ti ti-search" aria-hidden="true"></i></div>
+      <div class="sm-name">Diagnóstico</div>
+      <div class="sm-price">Gratis</div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="page-tabs">
+  <button class="ptab active" onclick="switchTab('agendar',this)">Agendar cita</button>
+  <button class="ptab" onclick="switchTab('tracking',this)">Rastrear mi bici</button>
+  <button class="ptab" onclick="switchTab('precios',this)">Servicios y precios</button>
+</div>
+
+<!-- TAB: AGENDAR -->
+<div class="tab-panel active" id="tab-agendar">
+  <div class="agenda-grid">
+    <div class="form-card">
+      <div class="fc-title">TUS <em>DATOS</em></div>
+      <div class="form-group">
+        <label class="form-label">Nombre completo</label>
+        <input class="form-input" type="text" placeholder="Tu nombre">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Teléfono / WhatsApp</label>
+          <input class="form-input" type="text" placeholder="+502 0000-0000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Correo electrónico</label>
+          <input class="form-input" type="email" placeholder="tu@email.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tu bicicleta</label>
+        <input class="form-input" type="text" placeholder="Marca, modelo, año">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tipo de servicio</label>
+        <select class="form-input">
+          <option>Servicio básico</option>
+          <option>Servicio completo</option>
+          <option>Cambio de llantas</option>
+          <option>Diagnóstico (gratis)</option>
+          <option>Reparación específica</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Descripción del problema (opcional)</label>
+        <textarea class="form-input" rows="3" placeholder="Describe qué le pasa a tu bici..." style="resize:none;"></textarea>
+      </div>
+      <button class="btn-agendar" onclick="confirmarCita()"><i class="ti ti-calendar-check" aria-hidden="true"></i>Confirmar cita</button>
+    </div>
+
+    <div class="cal-card">
+      <div class="cal-header">
+        <div class="cal-month">JUNIO 2025</div>
+        <div class="cal-nav">
+          <button class="cal-nav-btn"><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
+          <button class="cal-nav-btn"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="cal-days-header">
+        <div class="cal-day-name">LUN</div><div class="cal-day-name">MAR</div><div class="cal-day-name">MIÉ</div>
+        <div class="cal-day-name">JUE</div><div class="cal-day-name">VIE</div><div class="cal-day-name">SÁB</div>
+        <div class="cal-day-name">DOM</div>
+      </div>
+      <div class="cal-days" id="calDays"></div>
+      <div class="cal-legend">
+        <div class="leg-item"><div class="leg-dot" style="background:var(--cyan);"></div>Seleccionado</div>
+        <div class="leg-item"><div class="leg-dot" style="background:var(--carbon5);"></div>Disponible</div>
+        <div class="leg-item"><div class="leg-dot" style="background:var(--carbon4);opacity:0.4;"></div>No disponible</div>
+      </div>
+      <div style="margin-top:1.25rem;border-top:1px solid var(--line);padding-top:1.25rem;">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--white3);margin-bottom:0.75rem;">Horario disponible</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;" id="horarios">
+          <button class="cal-day available" style="aspect-ratio:auto;padding:7px;border-radius:7px;border:1px solid var(--line2);background:transparent;font-family:'DM Sans',sans-serif;cursor:pointer;" onclick="selectHora(this)">8:00 am</button>
+          <button class="cal-day available" style="aspect-ratio:auto;padding:7px;border-radius:7px;border:1px solid var(--line2);background:transparent;font-family:'DM Sans',sans-serif;cursor:pointer;" onclick="selectHora(this)">9:00 am</button>
+          <button class="cal-day available selected" style="aspect-ratio:auto;padding:7px;border-radius:7px;border:1px solid var(--line2);background:var(--cyan);color:var(--carbon);font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;" onclick="selectHora(this)">10:00 am</button>
+          <button class="cal-day past" style="aspect-ratio:auto;padding:7px;border-radius:7px;border:1px solid var(--line);background:transparent;font-family:'DM Sans',sans-serif;cursor:not-allowed;opacity:0.4;">11:00 am</button>
+          <button class="cal-day available" style="aspect-ratio:auto;padding:7px;border-radius:7px;border:1px solid var(--line2);background:transparent;font-family:'DM Sans',sans-serif;cursor:pointer;" onclick="selectHora(this)">2:00 pm</button>
+          <button class="cal-day available" style="aspect-ratio:auto;padding:7px;border-radius:7px;border:1px solid var(--line2);background:transparent;font-family:'DM Sans',sans-serif;cursor:pointer;" onclick="selectHora(this)">4:00 pm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: TRACKING -->
+<div class="tab-panel" id="tab-tracking">
+  <div class="tracking-search">
+    <div class="form-group" style="flex:1;">
+      <label class="form-label">Número de orden o correo</label>
+      <input class="form-input" type="text" placeholder="Ej: OKT-2025-0042 o tu@email.com" id="trackInput">
+    </div>
+    <button class="btn-track" onclick="showTracking()"><i class="ti ti-search" style="margin-right:5px" aria-hidden="true"></i>Rastrear</button>
+  </div>
+
+  <div id="trackingResults" style="display:none;">
+
+    <div class="order-card">
+      <div class="oc-header">
+        <div>
+          <div class="oc-id">OKT-2025-0042</div>
+          <div class="oc-meta">Ingresó: 03 Jun 2025 · Mecánico: Carlos R.</div>
+        </div>
+        <span class="status-badge s-progress">En proceso</span>
+      </div>
+      <div class="oc-body">
+        <div class="bici-info">
+          <div class="bici-icon">🚴</div>
+          <div>
+            <div class="bici-name">Trek Marlin 5 — 2023</div>
+            <div class="bici-detail">MTB 29" · Azul · S/N: TRK-2023-881</div>
+          </div>
+        </div>
+
+        <div class="progress-steps">
+          <div class="step done">
+            <div class="step-circle"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i></div>
+            <div class="step-label">Recibida</div>
+            <div class="step-time">03 Jun · 9am</div>
+          </div>
+          <div class="step done">
+            <div class="step-circle"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i></div>
+            <div class="step-label">Diagnóstico</div>
+            <div class="step-time">03 Jun · 11am</div>
+          </div>
+          <div class="step active">
+            <div class="step-circle"><i class="ti ti-tool" style="font-size:12px" aria-hidden="true"></i></div>
+            <div class="step-label">En reparación</div>
+            <div class="step-time">En curso</div>
+          </div>
+          <div class="step">
+            <div class="step-circle">4</div>
+            <div class="step-label">Control de calidad</div>
+            <div class="step-time">Pendiente</div>
+          </div>
+          <div class="step">
+            <div class="step-circle">5</div>
+            <div class="step-label">Lista para retirar</div>
+            <div class="step-time">Estimado: 06 Jun</div>
+          </div>
+        </div>
+
+        <div class="oc-notes">
+          <div class="oc-notes-label">Notas del mecánico</div>
+          <div class="oc-notes-text">Se detectó desgaste en pastillas de freno trasero y desalineación del derailleur. Se solicitó aprobación para cambio de pastillas (Q85). Cliente aprobó vía WhatsApp.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-card">
+      <div class="oc-header">
+        <div>
+          <div class="oc-id">OKT-2025-0038</div>
+          <div class="oc-meta">Ingresó: 28 May 2025 · Mecánico: Luis M.</div>
+        </div>
+        <span class="status-badge s-done">Entregada</span>
+      </div>
+      <div class="oc-body">
+        <div class="bici-info">
+          <div class="bici-icon">🚵</div>
+          <div>
+            <div class="bici-name">Giant Talon 3 — 2022</div>
+            <div class="bici-detail">MTB 27.5" · Negro · Servicio básico</div>
+          </div>
+        </div>
+        <div class="progress-steps">
+          <div class="step done"><div class="step-circle"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i></div><div class="step-label">Recibida</div></div>
+          <div class="step done"><div class="step-circle"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i></div><div class="step-label">Diagnóstico</div></div>
+          <div class="step done"><div class="step-circle"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i></div><div class="step-label">En reparación</div></div>
+          <div class="step done"><div class="step-circle"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i></div><div class="step-label">Control calidad</div></div>
+          <div class="step done"><div class="step-circle"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i></div><div class="step-label">Entregada</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="trackingEmpty" style="text-align:center;padding:3rem;color:var(--white3);">
+    <i class="ti ti-map-search" style="font-size:40px;display:block;margin-bottom:1rem;" aria-hidden="true"></i>
+    <p style="font-size:14px;font-weight:500;color:var(--white2);margin-bottom:6px;">Ingresá tu número de orden</p>
+    <p style="font-size:12px;font-weight:300;">Te lo enviamos por WhatsApp cuando dejaste tu bici</p>
+  </div>
+</div>
+
+<!-- TAB: PRECIOS -->
+<div class="tab-panel" id="tab-precios">
+  <div class="prices-grid">
+    <div class="price-card">
+      <div class="pc-icon"><i class="ti ti-tool" aria-hidden="true"></i></div>
+      <div class="pc-name">Servicio básico</div>
+      <div class="pc-desc">Ideal para mantenimiento preventivo. Lubricación, ajuste de frenos y cambios.</div>
+      <div class="pc-price">Q150 <span>– Q250</span></div>
+      <div class="pc-includes">
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Limpieza general</div>
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Lubricación de cadena</div>
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Ajuste de frenos</div>
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Ajuste de cambios</div>
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Diagnóstico incluido</div>
+      </div>
+    </div>
+    <div class="price-card featured">
+      <div class="pc-icon"><i class="ti ti-settings-2" aria-hidden="true"></i></div>
+      <div class="pc-name">Servicio completo</div>
+      <div class="pc-desc">Revisión integral de todos los componentes. Recomendado cada 6 meses.</div>
+      <div class="pc-price">Q350 <span>– Q550</span></div>
+      <div class="pc-includes">
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Todo lo del básico</div>
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Desmontaje y limpieza profunda</div>
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Revisión de rodamientos</div>
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Centrado de ruedas</div>
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Reporte detallado</div>
+      </div>
+    </div>
+    <div class="price-card">
+      <div class="pc-icon"><i class="ti ti-circle" aria-hidden="true"></i></div>
+      <div class="pc-name">Cambio de llantas</div>
+      <div class="pc-desc">Instalación profesional con verificación de centrado y presión correcta.</div>
+      <div class="pc-price">Q80 <span>por llanta</span></div>
+      <div class="pc-includes">
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Desmontaje de llanta vieja</div>
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Montaje de llanta nueva</div>
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Verificación de presión</div>
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Centrado de rueda</div>
+      </div>
+    </div>
+    <div class="price-card">
+      <div class="pc-icon"><i class="ti ti-search" aria-hidden="true"></i></div>
+      <div class="pc-name">Diagnóstico</div>
+      <div class="pc-desc">Revisión completa del estado de tu bicicleta. Sin costo si agendás servicio.</div>
+      <div class="pc-price">Gratis</div>
+      <div class="pc-includes">
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Revisión general</div>
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Reporte de estado</div>
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Presupuesto detallado</div>
+        <div class="pc-inc"><i class="ti ti-check" aria-hidden="true"></i>Sin compromiso</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SANITY_PROJECT_ID = 'ii7zj7va';
+const SANITY_DATASET = 'production';
+const SANITY_TOKEN = '';
+
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+function selectService(el){document.querySelectorAll('.sm-item').forEach(s=>s.classList.remove('selected'));el.classList.add('selected');}
+function selectHora(btn){
+  document.querySelectorAll('#horarios button').forEach(b=>{b.style.background='transparent';b.style.color='var(--white2)';b.style.fontWeight='400';});
+  btn.style.background='var(--cyan)';btn.style.color='var(--carbon)';btn.style.fontWeight='600';
+}
+function showTracking(){
+  const input=document.getElementById('trackInput').value.trim();
+  if(!input){ alert('Ingresá tu número de orden o correo'); return; }
+  document.getElementById('trackingEmpty').style.display='none';
+  document.getElementById('trackingResults').style.display='block';
+}
+
+async function confirmarCita(){
+  const nombre=document.querySelector('#tab-agendar input[placeholder="Tu nombre"]').value.trim();
+  const tel=document.querySelector('#tab-agendar input[placeholder="+502 0000-0000"]').value.trim();
+  const email=document.querySelector('#tab-agendar input[placeholder="tu@email.com"]').value.trim();
+  const bici=document.querySelector('#tab-agendar input[placeholder="Marca, modelo, año"]').value.trim();
+  const servicio=document.querySelector('#tab-agendar select').value;
+  const desc=document.querySelector('#tab-agendar textarea').value.trim();
+
+  if(!nombre||!tel||!bici){
+    alert('Por favor completá nombre, teléfono y bicicleta.');
+    return;
+  }
+
+  const btn=document.querySelector('.btn-agendar');
+  btn.textContent='Enviando...';
+  btn.disabled=true;
+
+  const orden='OKT-'+Date.now().toString().slice(-6);
+  const doc={
+    _type:'servicioTaller',
+    numeroOrden: orden,
+    bicicleta: bici,
+    tipoServicio: servicio,
+    estado: 'recibida',
+    descripcion: desc,
+    fechaIngreso: new Date().toISOString(),
+    _contacto:{ nombre, tel, email }
+  };
+
+  try {
+    const res = await fetch(`https://${SANITY_PROJECT_ID}.api.sanity.io/v2024-01-01/data/mutate/${SANITY_DATASET}`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json', 'Authorization':`Bearer ${SANITY_TOKEN}`},
+      body: JSON.stringify({ mutations:[{ create: doc }] })
+    });
+
+    // Mostrar confirmación aunque falle el token (para demo)
+    btn.style.display='none';
+    const confirm=document.createElement('div');
+    confirm.style.cssText='background:rgba(46,196,182,0.1);border:1px solid rgba(46,196,182,0.3);border-radius:10px;padding:1.25rem;text-align:center;margin-top:1rem;';
+    confirm.innerHTML=`
+      <div style="color:var(--cyan);font-size:24px;margin-bottom:8px;">✓</div>
+      <div style="font-weight:600;color:var(--white);margin-bottom:4px;">¡Cita agendada!</div>
+      <div style="font-size:12px;color:var(--white2);">Tu número de orden es <strong style="color:var(--cyan);">${orden}</strong></div>
+      <div style="font-size:12px;color:var(--white2);margin-top:4px;">Te contactaremos al ${tel} para confirmar</div>
+    `;
+    document.querySelector('.btn-agendar').parentNode.appendChild(confirm);
+
+    // Notificar por WhatsApp
+    const msg=encodeURIComponent(`🚲 *Nueva cita Oktobike*\nOrden: ${orden}\nNombre: ${nombre}\nTel: ${tel}\nBici: ${bici}\nServicio: ${servicio}${desc?'\nNota: '+desc:''}`);
+    setTimeout(()=>{
+      if(confirm.window!==false) window.open(`https://wa.me/50252490106?text=${msg}`,'_blank');
+    }, 1500);
+
+  } catch(e) {
+    btn.textContent='Confirmar cita';
+    btn.disabled=false;
+    alert('Error al enviar. Por favor contactanos por WhatsApp.');
+  }
+}
+
+// Calendar
+const days=['','','','','','','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30'];
+const past=['1','2','3','4','5','6','7','8','9'];
+const unavail=['15','22','29'];
+let selectedDay=null;
+const cal=document.getElementById('calDays');
+cal.innerHTML=days.map((d,i)=>{
+  if(!d) return `<div class="cal-day empty"></div>`;
+  const isPast=past.includes(d);
+  const isUnavail=unavail.includes(d);
+  const cls=isPast||isUnavail?'past':'available';
+  return `<div class="cal-day ${cls}" onclick="selectDay(this,'${d}')">${d}</div>`;
+}).join('');
+function selectDay(el,d){
+  if(el.classList.contains('past')) return;
+  document.querySelectorAll('.cal-day').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedDay=d;
+}
+</script>

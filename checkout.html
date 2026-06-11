@@ -1,0 +1,394 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--carbon:#0e0e10;--carbon2:#141416;--carbon3:#1c1c1f;--carbon4:#242428;--carbon5:#2e2e33;--line:#ffffff0f;--line2:#ffffff18;--line3:#ffffff28;--cyan:#2ec4b6;--red:#e03030;--white:#f5f5f5;--white2:#a0a0a8;--white3:#5a5a62;}
+body{font-family:'DM Sans',sans-serif;background:var(--carbon);color:var(--white);}
+.nav{background:rgba(14,14,16,0.97);border-bottom:1px solid var(--line);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--white);}
+.nav-logo .ac{color:var(--cyan);}.nav-logo .sh{color:var(--red);font-size:14px;}
+.nav-links{display:flex;gap:1.25rem;list-style:none;}
+.nav-links a{color:var(--white2);text-decoration:none;font-size:11px;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;}
+.btn-ghost{background:transparent;color:var(--white2);border:1px solid var(--line2);border-radius:6px;padding:6px 13px;font-family:'DM Sans',sans-serif;font-size:11px;cursor:pointer;}
+.btn-cart{background:var(--white);color:var(--carbon);border:none;border-radius:6px;padding:6px 14px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:6px;}
+.cart-dot{background:var(--red);color:white;border-radius:50%;width:15px;height:15px;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.checkout-steps{background:var(--carbon2);border-bottom:1px solid var(--line);padding:1rem 1.5rem;display:flex;align-items:center;gap:0;}
+.cs-step{display:flex;align-items:center;gap:8px;flex:1;}
+.cs-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;border:1.5px solid var(--line2);color:var(--white3);flex-shrink:0;}
+.cs-step.done .cs-num{background:var(--cyan);border-color:var(--cyan);color:var(--carbon);}
+.cs-step.active .cs-num{border-color:var(--cyan);color:var(--cyan);}
+.cs-label{font-size:12px;font-weight:500;color:var(--white3);}
+.cs-step.done .cs-label,.cs-step.active .cs-label{color:var(--white);}
+.cs-sep{flex:1;height:1px;background:var(--line2);margin:0 0.75rem;}
+.checkout-layout{display:grid;grid-template-columns:1fr 380px;gap:0;min-height:500px;}
+.checkout-main{padding:1.5rem;border-right:1px solid var(--line);}
+.section-card{background:var(--carbon3);border:1px solid var(--line);border-radius:14px;padding:1.5rem;margin-bottom:1rem;}
+.sc-title{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--white);letter-spacing:1px;margin-bottom:1.25rem;display:flex;align-items:center;gap:10px;}
+.sc-title em{color:var(--cyan);font-style:normal;}
+.sc-title i{color:var(--cyan);font-size:18px;}
+.del-opts{display:flex;flex-direction:column;gap:8px;}
+.del-opt{background:var(--carbon4);border:1px solid var(--line2);border-radius:10px;padding:1rem 1.25rem;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all 0.2s;}
+.del-opt:hover{border-color:var(--line3);}
+.del-opt.selected{border-color:rgba(46,196,182,0.3);background:rgba(46,196,182,0.03);}
+.radio{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--white3);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.del-opt.selected .radio{border-color:var(--cyan);}
+.radio-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);display:none;}
+.del-opt.selected .radio-dot{display:block;}
+.del-icon{width:38px;height:38px;border-radius:9px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--white2);}
+.del-opt.selected .del-icon{background:rgba(46,196,182,0.08);color:var(--cyan);}
+.del-info{flex:1;}
+.del-title{font-size:13px;font-weight:500;color:var(--white);margin-bottom:2px;}
+.del-sub{font-size:11px;color:var(--white3);font-weight:300;}
+.del-price{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--white);}
+.del-opt.selected .del-price{color:var(--cyan);}
+.ship-form{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--line);display:none;}
+.ship-form.visible{display:block;}
+.form-group{margin-bottom:0.875rem;}
+.form-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--white3);margin-bottom:5px;display:block;}
+.form-input{width:100%;background:var(--carbon4);border:1px solid var(--line2);border-radius:8px;padding:10px 13px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--white);outline:none;transition:border-color 0.2s;}
+.form-input:focus{border-color:rgba(46,196,182,0.3);}
+.form-input::placeholder{color:var(--white3);}
+.form-input.error{border-color:var(--red)!important;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pay-methods{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem;}
+.pay-opt{background:var(--carbon4);border:1px solid var(--line2);border-radius:10px;padding:0.875rem;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all 0.2s;}
+.pay-opt:hover{border-color:var(--line3);}
+.pay-opt.selected{border-color:rgba(46,196,182,0.3);background:rgba(46,196,182,0.03);}
+.pay-icon{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--white3);}
+.pay-opt.selected .pay-icon{background:rgba(46,196,182,0.08);color:var(--cyan);}
+.pay-label{font-size:12px;font-weight:500;color:var(--white);display:block;}
+.pay-sub{font-size:10px;color:var(--white3);font-weight:300;}
+.card-form{margin-top:0.875rem;padding-top:0.875rem;border-top:1px solid var(--line);display:none;}
+.card-form.visible{display:block;}
+.card-logos{display:flex;gap:6px;margin-top:0.75rem;}
+.card-logo{background:var(--carbon4);border:1px solid var(--line);border-radius:5px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--white2);letter-spacing:0.5px;}
+.coupon-row{display:flex;gap:8px;margin-top:0.875rem;}
+.coupon-row input{flex:1;}
+.btn-coupon{background:transparent;color:var(--cyan);border:1px solid rgba(46,196,182,0.3);border-radius:8px;padding:10px 16px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;}
+.order-summary{background:var(--carbon2);border-left:1px solid var(--line);padding:1.5rem;display:flex;flex-direction:column;gap:1rem;}
+.os-title{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--white);letter-spacing:1px;}
+.os-items{display:flex;flex-direction:column;gap:10px;}
+.os-item{display:flex;align-items:center;gap:10px;}
+.oi-img{width:48px;height:48px;background:var(--carbon3);border:1px solid var(--line);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.oi-info{flex:1;}
+.oi-name{font-size:12px;font-weight:500;color:var(--white);line-height:1.3;}
+.oi-meta{font-size:11px;color:var(--white3);font-weight:300;margin-top:2px;}
+.oi-price{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--white);flex-shrink:0;}
+.os-divider{height:1px;background:var(--line);}
+.os-totals{display:flex;flex-direction:column;gap:8px;}
+.ot-row{display:flex;justify-content:space-between;font-size:13px;color:var(--white2);}
+.ot-row.discount{color:var(--cyan);}
+.ot-row.total{font-size:16px;font-weight:600;color:var(--white);padding-top:8px;border-top:1px solid var(--line);}
+.ot-val{font-weight:500;}
+.btn-comprar{width:100%;background:var(--white);color:var(--carbon);border:none;border-radius:8px;padding:14px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;}
+.btn-comprar:hover{background:var(--white2);}
+.btn-comprar:disabled{opacity:0.6;cursor:not-allowed;}
+.secure-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11px;color:var(--white3);font-weight:300;}
+.error-msg{background:rgba(224,48,48,0.1);border:1px solid rgba(224,48,48,0.3);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--red);margin-bottom:1rem;display:none;}
+.success-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:200;align-items:center;justify-content:center;}
+.success-overlay.show{display:flex;}
+.success-card{background:var(--carbon3);border:1px solid rgba(46,196,182,0.3);border-radius:16px;padding:2.5rem;text-align:center;max-width:400px;width:90%;}
+.success-icon{width:60px;height:60px;border-radius:50%;background:rgba(46,196,182,0.1);border:1px solid rgba(46,196,182,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:26px;}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--white);letter-spacing:1px;margin-bottom:0.5rem;}
+.success-orden{font-size:13px;color:var(--white2);margin-bottom:0.5rem;}
+.success-orden strong{color:var(--cyan);}
+.success-sub{font-size:12px;color:var(--white3);line-height:1.6;margin-bottom:1.5rem;}
+.btn-success{background:var(--white);color:var(--carbon);border:none;border-radius:8px;padding:12px 24px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;cursor:pointer;}
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+    <div class="success-icon">✓</div>
+    <div class="success-title">¡PEDIDO CONFIRMADO!</div>
+    <div class="success-orden">Tu número de orden: <strong id="ordenNumero">OKT-000000</strong></div>
+    <div class="success-sub">Te contactaremos al número indicado para coordinar tu pedido. Revisá tu WhatsApp.</div>
+    <button class="btn-success" onclick="window.location='index.html'">Volver al inicio</button>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-logo" onclick="window.location='index.html'" style="cursor:pointer;">OKTO<span class="ac">BIKE</span> <span class="sh">SHOP</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="tienda.html">Tienda</a></li>
+    <li><a href="taller.html">Taller</a></li>
+    <li><a href="#">Marcas</a></li>
+    <li><a href="mi_bici.html">Mi Bici</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-ghost" onclick="window.location='login.html'"><i class="ti ti-user" style="font-size:12px;margin-right:4px"></i>Mi cuenta</button>
+    <button class="btn-cart" onclick="window.location='checkout.html'"><i class="ti ti-shopping-cart"></i>Carrito<span class="cart-dot">0</span></button>
+  </div>
+</nav>
+
+<div class="checkout-steps">
+  <div class="cs-step done"><div class="cs-num"><i class="ti ti-check" style="font-size:11px"></i></div><span class="cs-label">Carrito</span></div>
+  <div class="cs-sep"></div>
+  <div class="cs-step active"><div class="cs-num">2</div><span class="cs-label">Entrega y pago</span></div>
+  <div class="cs-sep"></div>
+  <div class="cs-step" id="step3"><div class="cs-num">3</div><span class="cs-label">Confirmación</span></div>
+</div>
+
+<div class="checkout-layout">
+  <div class="checkout-main">
+
+    <div id="errorMsg" class="error-msg"></div>
+
+    <!-- ENTREGA -->
+    <div class="section-card">
+      <div class="sc-title"><i class="ti ti-truck-delivery"></i>Método de <em>Entrega</em></div>
+      <div class="del-opts">
+        <div class="del-opt selected" onclick="selectDel(this,'envio')">
+          <div class="radio"><div class="radio-dot"></div></div>
+          <div class="del-icon"><i class="ti ti-truck-delivery"></i></div>
+          <div class="del-info"><div class="del-title">Envío a domicilio</div><div class="del-sub">Entrega en toda Guatemala · 2–5 días hábiles</div></div>
+          <div class="del-price">Q35</div>
+        </div>
+        <div class="del-opt" onclick="selectDel(this,'tienda')">
+          <div class="radio"><div class="radio-dot"></div></div>
+          <div class="del-icon"><i class="ti ti-building-store"></i></div>
+          <div class="del-info"><div class="del-title">Recoger en tienda</div><div class="del-sub">Listo en 24h · Sin costo de envío</div></div>
+          <div class="del-price">Gratis</div>
+        </div>
+        <div class="del-opt" onclick="selectDel(this,'express')">
+          <div class="radio"><div class="radio-dot"></div></div>
+          <div class="del-icon"><i class="ti ti-bolt"></i></div>
+          <div class="del-info"><div class="del-title">Entrega express</div><div class="del-sub">Guatemala Ciudad · Mismo día o siguiente</div></div>
+          <div class="del-price">Q80</div>
+        </div>
+      </div>
+
+      <div class="ship-form visible" id="shipForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nombre completo *</label>
+            <input class="form-input" id="shipNombre" type="text" placeholder="Nombre y apellido">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Teléfono / WhatsApp *</label>
+            <input class="form-input" id="shipTel" type="text" placeholder="+502 0000-0000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Dirección *</label>
+          <input class="form-input" id="shipDireccion" type="text" placeholder="Calle, número, colonia">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Ciudad / Municipio *</label>
+            <input class="form-input" id="shipCiudad" type="text" placeholder="Guatemala">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Departamento</label>
+            <select class="form-input" id="shipDepto">
+              <option>Guatemala</option>
+              <option>Sacatepéquez</option>
+              <option>Quetzaltenango</option>
+              <option>Escuintla</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Referencia (opcional)</label>
+          <input class="form-input" id="shipRef" type="text" placeholder="Cerca de, frente a...">
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGO -->
+    <div class="section-card">
+      <div class="sc-title"><i class="ti ti-credit-card"></i>Método de <em>Pago</em></div>
+      <div class="pay-methods">
+        <div class="pay-opt selected" onclick="selectPay(this,'tarjeta')">
+          <div class="pay-icon"><i class="ti ti-credit-card"></i></div>
+          <div><span class="pay-label">Tarjeta</span><span class="pay-sub">Crédito / Débito</span></div>
+        </div>
+        <div class="pay-opt" onclick="selectPay(this,'transferencia')">
+          <div class="pay-icon"><i class="ti ti-building-bank"></i></div>
+          <div><span class="pay-label">Transferencia</span><span class="pay-sub">Bancaria</span></div>
+        </div>
+        <div class="pay-opt" onclick="selectPay(this,'whatsapp')">
+          <div class="pay-icon"><i class="ti ti-brand-whatsapp"></i></div>
+          <div><span class="pay-label">WhatsApp</span><span class="pay-sub">Coordinación directa</span></div>
+        </div>
+        <div class="pay-opt" onclick="selectPay(this,'efectivo')">
+          <div class="pay-icon"><i class="ti ti-cash"></i></div>
+          <div><span class="pay-label">Efectivo</span><span class="pay-sub">Solo en tienda</span></div>
+        </div>
+      </div>
+      <div class="card-form visible" id="cardForm">
+        <div class="form-group"><label class="form-label">Número de tarjeta</label><input class="form-input" type="text" placeholder="0000  0000  0000  0000" maxlength="19"></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Vencimiento</label><input class="form-input" type="text" placeholder="MM / AA" maxlength="7"></div>
+          <div class="form-group"><label class="form-label">CVV</label><input class="form-input" type="text" placeholder="000" maxlength="4"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Nombre en tarjeta</label><input class="form-input" type="text" placeholder="Como aparece en tu tarjeta"></div>
+        <div class="card-logos"><span class="card-logo">VISA</span><span class="card-logo">MASTERCARD</span><span class="card-logo">AMEX</span></div>
+      </div>
+      <div class="coupon-row">
+        <input class="form-input" type="text" placeholder="Código de descuento o membresía" id="couponInput">
+        <button class="btn-coupon" onclick="aplicarCupon()">Aplicar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER SUMMARY -->
+  <div class="order-summary">
+    <div class="os-title">Tu Pedido</div>
+    <div class="os-items">
+      <div class="os-item">
+        <div class="oi-img">🌸</div>
+        <div class="oi-info"><div class="oi-name">Enterizo Floreado Manga Corta</div><div class="oi-meta">Talla M · GW · ×1</div></div>
+        <div class="oi-price" style="color:var(--cyan);">Q451</div>
+      </div>
+      <div class="os-item">
+        <div class="oi-img">🧤</div>
+        <div class="oi-info"><div class="oi-name">Guantes Largos Reflectivos</div><div class="oi-meta">Talla L · GW · ×1</div></div>
+        <div class="oi-price" style="color:var(--cyan);">Q243</div>
+      </div>
+      <div class="os-item">
+        <div class="oi-img">🧣</div>
+        <div class="oi-info"><div class="oi-name">Bandana FOX</div><div class="oi-meta">Unitalla · GW · ×2</div></div>
+        <div class="oi-price">Q120</div>
+      </div>
+    </div>
+    <div class="os-divider"></div>
+    <div class="os-totals">
+      <div class="ot-row"><span>Subtotal</span><span class="ot-val">Q814</span></div>
+      <div class="ot-row discount"><span>Descuentos aplicados</span><span class="ot-val">−Q106</span></div>
+      <div class="ot-row"><span>Envío</span><span class="ot-val" id="shipCost">Q35</span></div>
+      <div class="ot-row total"><span>Total</span><span class="ot-val" id="totalVal">Q743</span></div>
+    </div>
+    <button class="btn-comprar" id="btnComprar" onclick="confirmOrder()">
+      <i class="ti ti-lock"></i>Confirmar pedido
+    </button>
+    <div class="secure-note"><i class="ti ti-shield-check"></i>Pago 100% seguro y encriptado</div>
+    <div style="border-top:1px solid var(--line);padding-top:1rem;">
+      <div style="font-size:11px;color:var(--white3);font-weight:300;line-height:1.6;">Al confirmar aceptás nuestros <span style="color:var(--cyan);cursor:pointer;">términos y condiciones</span> y <span style="color:var(--cyan);cursor:pointer;">política de devoluciones</span>.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+let deliveryType = 'envio';
+let payType = 'tarjeta';
+let shipCostNum = 35;
+
+function selectDel(el, type){
+  document.querySelectorAll('.del-opt').forEach(d=>d.classList.remove('selected'));
+  el.classList.add('selected');
+  deliveryType = type;
+  const sf = document.getElementById('shipForm');
+  sf.classList.toggle('visible', type==='envio'||type==='express');
+  const cost = type==='tienda'?'Gratis':type==='express'?'Q80':'Q35';
+  shipCostNum = type==='tienda'?0:type==='express'?80:35;
+  document.getElementById('shipCost').textContent = cost;
+  document.getElementById('totalVal').textContent = 'Q'+(743-35+shipCostNum);
+}
+
+function selectPay(el, type){
+  document.querySelectorAll('.pay-opt').forEach(p=>p.classList.remove('selected'));
+  el.classList.add('selected');
+  payType = type;
+  document.getElementById('cardForm').classList.toggle('visible', type==='tarjeta');
+}
+
+function aplicarCupon(){
+  const code = document.getElementById('couponInput').value.trim().toUpperCase();
+  if(code==='OKTO10'){
+    showError('✓ Cupón aplicado: 10% de descuento', true);
+  } else if(code) {
+    showError('Código de descuento no válido.');
+  }
+}
+
+function showError(msg, isSuccess=false){
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+  el.style.background = isSuccess ? 'rgba(46,196,182,0.1)' : 'rgba(224,48,48,0.1)';
+  el.style.borderColor = isSuccess ? 'rgba(46,196,182,0.3)' : 'rgba(224,48,48,0.3)';
+  el.style.color = isSuccess ? 'var(--cyan)' : 'var(--red)';
+  setTimeout(()=>{ el.style.display='none'; }, 4000);
+}
+
+function validateForm(){
+  const isDelivery = deliveryType==='envio'||deliveryType==='express';
+  if(isDelivery){
+    const nombre = document.getElementById('shipNombre').value.trim();
+    const tel = document.getElementById('shipTel').value.trim();
+    const dir = document.getElementById('shipDireccion').value.trim();
+    const ciudad = document.getElementById('shipCiudad').value.trim();
+    if(!nombre){ document.getElementById('shipNombre').classList.add('error'); showError('Por favor ingresá tu nombre completo.'); return false; }
+    if(!tel){ document.getElementById('shipTel').classList.add('error'); showError('Por favor ingresá tu teléfono o WhatsApp.'); return false; }
+    if(!dir){ document.getElementById('shipDireccion').classList.add('error'); showError('Por favor ingresá tu dirección de entrega.'); return false; }
+    if(!ciudad){ document.getElementById('shipCiudad').classList.add('error'); showError('Por favor ingresá tu ciudad.'); return false; }
+  }
+  document.querySelectorAll('.form-input.error').forEach(el=>el.classList.remove('error'));
+  return true;
+}
+
+async function confirmOrder(){
+  if(!validateForm()) return;
+
+  const btn = document.getElementById('btnComprar');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader" style="animation:spin 1s linear infinite"></i>Procesando...';
+
+  const orden = 'OKT-' + Date.now().toString().slice(-6);
+  const nombre = document.getElementById('shipNombre')?.value.trim() || 'Cliente en tienda';
+  const tel = document.getElementById('shipTel')?.value.trim() || '';
+  const dir = document.getElementById('shipDireccion')?.value.trim() || '';
+  const ciudad = document.getElementById('shipCiudad')?.value.trim() || '';
+  const depto = document.getElementById('shipDepto')?.value || '';
+  const ref = document.getElementById('shipRef')?.value.trim() || '';
+  const total = parseInt(document.getElementById('totalVal').textContent.replace('Q','').replace(',',''));
+
+  // Guardar en Sanity
+  try {
+    const doc = {
+      _type: 'pedido',
+      numeroPedido: orden,
+      estado: 'pendiente',
+      metodoPago: payType,
+      metodoEntrega: deliveryType,
+      total: total,
+      direccion: `${nombre} · ${tel} · ${dir}, ${ciudad}, ${depto}${ref?' · Ref: '+ref:''}`,
+      fecha: new Date().toISOString(),
+    };
+    await fetch('https://ii7zj7va.api.sanity.io/v2024-01-01/data/mutate/production', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mutations: [{ create: doc }] })
+    });
+  } catch(e) {
+    console.log('Sanity save error:', e);
+  }
+
+  // Notificar por WhatsApp
+  const items = 'Enterizo Floreado M, Guantes L, Bandana FOX x2';
+  const msg = encodeURIComponent(
+    `🛒 *Nuevo pedido Oktobike*\n` +
+    `Orden: *${orden}*\n` +
+    `Cliente: ${nombre}\n` +
+    `Tel: ${tel}\n` +
+    `Entrega: ${deliveryType==='tienda'?'Retiro en tienda':deliveryType==='express'?'Express':'Envío a domicilio'}\n` +
+    `${dir?'Dir: '+dir+', '+ciudad+', '+depto+'\n':''}` +
+    `Pago: ${payType}\n` +
+    `Total: Q${total}\n` +
+    `Productos: ${items}`
+  );
+
+  // Mostrar éxito
+  document.getElementById('ordenNumero').textContent = orden;
+  document.getElementById('successOverlay').classList.add('show');
+
+  // Abrir WhatsApp
+  setTimeout(()=>{
+    window.open(`https://wa.me/50252490106?text=${msg}`, '_blank');
+  }, 1000);
+}
+</script>

@@ -1,0 +1,331 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --carbon:#0e0e10;--carbon2:#141416;--carbon3:#1c1c1f;--carbon4:#242428;--carbon5:#2e2e33;
+  --line:#ffffff0f;--line2:#ffffff18;--line3:#ffffff28;
+  --cyan:#2ec4b6;--red:#e03030;--white:#f5f5f5;--white2:#a0a0a8;--white3:#5a5a62;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--carbon);color:var(--white);}
+.nav{background:rgba(14,14,16,0.97);border-bottom:1px solid var(--line);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--white);}
+.nav-logo .ac{color:var(--cyan);}.nav-logo .sh{color:var(--red);font-size:14px;}
+.nav-links{display:flex;gap:1.25rem;list-style:none;}
+.nav-links a{color:var(--white2);text-decoration:none;font-size:11px;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;}
+.nav-links a.active,.nav-links a:hover{color:var(--white);}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.btn-ghost{background:transparent;color:var(--white2);border:1px solid var(--line2);border-radius:6px;padding:6px 13px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;cursor:pointer;}
+.btn-cart{background:var(--white);color:var(--carbon);border:none;border-radius:6px;padding:6px 14px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:6px;}
+.cart-dot{background:var(--red);color:white;border-radius:50%;width:15px;height:15px;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.store-hero{background:var(--carbon2);border-bottom:1px solid var(--line);padding:1.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.sh-left{display:flex;align-items:center;gap:1rem;}
+.sh-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.sh-line{width:18px;height:1px;background:var(--cyan);}
+.sh-eye{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);font-weight:500;}
+.store-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1.5px;color:var(--white);}
+.store-stats{display:flex;gap:1.5rem;}
+.st-stat{text-align:center;}
+.st-n{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--white);display:block;line-height:1;}
+.st-l{font-size:10px;color:var(--white3);text-transform:uppercase;letter-spacing:0.8px;}
+.search-bar{padding:1rem 1.5rem;background:var(--carbon3);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;}
+.search-wrap{flex:1;display:flex;align-items:center;gap:8px;background:var(--carbon4);border:1px solid var(--line2);border-radius:8px;padding:9px 14px;}
+.search-wrap input{flex:1;background:transparent;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--white);font-weight:300;}
+.search-wrap input::placeholder{color:var(--white3);}
+.search-wrap i{color:var(--white3);font-size:16px;}
+.view-btns{display:flex;gap:4px;}
+.view-btn{background:var(--carbon4);border:1px solid var(--line);border-radius:6px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--white3);font-size:16px;transition:all 0.2s;}
+.view-btn.active{background:var(--carbon5);border-color:var(--line2);color:var(--white);}
+.sort-sel{background:var(--carbon4);border:1px solid var(--line2);border-radius:8px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--white2);cursor:pointer;outline:none;}
+.store-body{display:grid;grid-template-columns:220px 1fr;min-height:600px;}
+.sidebar{background:var(--carbon2);border-right:1px solid var(--line);padding:1.25rem;overflow-y:auto;}
+.sb-section{margin-bottom:1.75rem;}
+.sb-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--white3);margin-bottom:0.875rem;display:flex;align-items:center;justify-content:space-between;}
+.sb-clear{font-size:10px;color:var(--cyan);cursor:pointer;font-weight:500;letter-spacing:0;}
+.filter-item{display:flex;align-items:center;justify-content:space-between;padding:6px 0;cursor:pointer;border-radius:6px;}
+.filter-item:hover .fi-label{color:var(--white);}
+.fi-left{display:flex;align-items:center;gap:8px;}
+.fi-check{width:14px;height:14px;border:1px solid var(--line3);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.15s;}
+.filter-item.active .fi-check{background:var(--cyan);border-color:var(--cyan);}
+.filter-item.active .fi-check::after{content:'✓';font-size:9px;color:var(--carbon);font-weight:700;}
+.fi-label{font-size:13px;color:var(--white2);font-weight:400;transition:color 0.15s;}
+.filter-item.active .fi-label{color:var(--white);}
+.fi-cnt{font-size:10px;color:var(--white3);background:var(--carbon4);border-radius:10px;padding:1px 7px;}
+.divider{height:1px;background:var(--line);margin:0.5rem 0;}
+.condition-btns{display:flex;gap:6px;}
+.cond-btn{flex:1;border:1px solid var(--line2);background:transparent;border-radius:7px;padding:7px 0;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;cursor:pointer;color:var(--white2);text-align:center;transition:all 0.2s;}
+.cond-btn.new-active{background:rgba(46,196,182,0.08);border-color:rgba(46,196,182,0.3);color:var(--cyan);}
+.cond-btn.used-active{background:rgba(224,48,48,0.08);border-color:rgba(224,48,48,0.3);color:var(--red);}
+.cond-btn.all-active{background:var(--carbon4);border-color:var(--line2);color:var(--white);}
+.price-range-wrap{padding:4px 0;}
+.price-vals{display:flex;justify-content:space-between;font-size:11px;color:var(--white2);margin-bottom:8px;font-weight:500;}
+input[type=range]{width:100%;accent-color:var(--cyan);}
+.marca-filter{display:flex;flex-wrap:wrap;gap:5px;}
+.mf-btn{border:1px solid var(--line);background:transparent;border-radius:5px;padding:3px 9px;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;cursor:pointer;color:var(--white3);transition:all 0.15s;letter-spacing:0.5px;}
+.mf-btn.active{background:rgba(46,196,182,0.08);border-color:rgba(46,196,182,0.25);color:var(--cyan);}
+.products-area{padding:1.25rem;}
+.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;}
+.result-info{font-size:12px;color:var(--white3);font-weight:300;}
+.result-info strong{color:var(--white);font-weight:500;}
+.active-filters{display:flex;gap:6px;flex-wrap:wrap;}
+.af-tag{display:flex;align-items:center;gap:5px;background:var(--carbon3);border:1px solid var(--line2);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--white2);cursor:pointer;}
+.af-tag i{font-size:11px;}
+.af-tag:hover{border-color:var(--red);color:var(--red);}
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.prod-grid.list-view{grid-template-columns:1fr;}
+.pc{background:var(--carbon3);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.2s;}
+.pc:hover{border-color:var(--line2);transform:translateY(-3px);}
+.pc-img{height:155px;display:flex;align-items:center;justify-content:center;font-size:50px;position:relative;background:var(--carbon4);}
+.pc-badges{position:absolute;top:8px;left:8px;display:flex;flex-direction:column;gap:4px;}
+.pb{padding:2px 8px;border-radius:5px;font-size:10px;font-weight:600;letter-spacing:0.3px;display:inline-block;}
+.pb-brand{background:rgba(255,255,255,0.07);color:var(--white2);border:1px solid var(--line);}
+.pb-new{background:rgba(46,196,182,0.1);color:var(--cyan);border:1px solid rgba(46,196,182,0.2);}
+.pb-used{background:rgba(224,48,48,0.1);color:var(--red);border:1px solid rgba(224,48,48,0.2);}
+.disc-tag{position:absolute;top:8px;right:8px;background:var(--red);color:white;border-radius:5px;padding:2px 8px;font-size:10px;font-weight:700;}
+.fav-btn{position:absolute;bottom:8px;right:8px;background:var(--carbon3);border:1px solid var(--line);border-radius:7px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;}
+.fav-btn:hover{border-color:var(--red);}.fav-btn i{font-size:13px;color:var(--white3);}
+.pc-body{padding:0.875rem;}
+.pc-cat{font-size:10px;color:var(--white3);font-weight:500;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px;}
+.pc-name{font-weight:500;font-size:13px;color:var(--white);margin-bottom:6px;line-height:1.4;}
+.pc-tallas{display:flex;gap:3px;margin-bottom:10px;flex-wrap:wrap;}
+.talla{border:1px solid var(--line);border-radius:4px;padding:2px 6px;font-size:10px;font-weight:400;color:var(--white3);}
+.pc-footer{display:flex;align-items:center;justify-content:space-between;}
+.price-block{display:flex;flex-direction:column;}
+.p-old{font-size:11px;color:var(--white3);text-decoration:line-through;line-height:1;}
+.p-main{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--white);line-height:1.1;}
+.p-main.disc{color:var(--cyan);}
+.btn-add{background:var(--carbon5);color:var(--white);border:1px solid var(--line2);border-radius:7px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all 0.2s;}
+.btn-add:hover{background:var(--white);color:var(--carbon);border-color:var(--white);}
+.prod-grid.list-view .pc{display:grid;grid-template-columns:140px 1fr auto;border-radius:10px;}
+.prod-grid.list-view .pc-img{height:100%;min-height:110px;font-size:40px;border-radius:0;}
+.prod-grid.list-view .pc-body{display:flex;flex-direction:column;justify-content:center;}
+.prod-grid.list-view .pc-actions{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:8px;padding:1rem;border-left:1px solid var(--line);}
+.prod-grid.list-view .pc-footer{display:none;}
+.prod-grid.list-view .list-price{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--white);}
+.prod-grid.list-view .list-price.disc{color:var(--cyan);}
+.prod-grid.list-view .list-old{font-size:11px;color:var(--white3);text-decoration:line-through;text-align:right;}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem;text-align:center;grid-column:1/-1;}
+.empty i{font-size:40px;color:var(--white3);margin-bottom:1rem;}
+.empty h3{font-size:15px;color:var(--white2);margin-bottom:6px;font-weight:500;}
+.empty p{font-size:13px;color:var(--white3);font-weight:300;}
+.pagination{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:2rem;}
+.page-btn{background:var(--carbon3);border:1px solid var(--line);border-radius:7px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--white2);transition:all 0.2s;font-weight:500;}
+.page-btn.active{background:var(--white);color:var(--carbon);border-color:var(--white);}
+.page-btn:hover:not(.active){border-color:var(--line2);color:var(--white);}
+.loading-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem;grid-column:1/-1;color:var(--white3);}
+.loading-spinner{width:32px;height:32px;border:2px solid var(--line2);border-top-color:var(--cyan);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:1rem;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
+
+<nav class="nav">
+  <div class="nav-logo" onclick="window.location='index.html'" style="cursor:pointer;">OKTO<span class="ac">BIKE</span> <span class="sh">SHOP</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="tienda.html" class="active">Tienda</a></li>
+    <li><a href="taller.html">Taller</a></li>
+    <li><a href="#">Marcas</a></li>
+    <li><a href="mi_bici.html">Mi Bici</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-ghost" onclick="window.location='login.html'"><i class="ti ti-user" style="font-size:12px;margin-right:4px"></i>Mi cuenta</button>
+    <button class="btn-cart" onclick="window.location='checkout.html'"><i class="ti ti-shopping-cart"></i>Carrito<span class="cart-dot" id="cartCount">0</span></button>
+  </div>
+</nav>
+
+<div class="store-hero">
+  <div class="sh-left">
+    <div>
+      <div class="sh-eyebrow"><div class="sh-line"></div><span class="sh-eye">Catálogo</span></div>
+      <div class="store-title">NUESTRA TIENDA</div>
+    </div>
+  </div>
+  <div class="store-stats">
+    <div class="st-stat"><span class="st-n" id="totalProds">...</span><span class="st-l">Productos</span></div>
+    <div class="st-stat"><span class="st-n">24</span><span class="st-l">Marcas</span></div>
+    <div class="st-stat"><span class="st-n">2</span><span class="st-l">Bici Usadas</span></div>
+  </div>
+</div>
+
+<div class="search-bar">
+  <div class="search-wrap">
+    <i class="ti ti-search"></i>
+    <input type="text" placeholder="Buscar productos, marcas..." id="searchInput" oninput="applyFilters()"/>
+  </div>
+  <div class="view-btns">
+    <button class="view-btn active" id="btnGrid" onclick="setView('grid')"><i class="ti ti-layout-grid"></i></button>
+    <button class="view-btn" id="btnList" onclick="setView('list')"><i class="ti ti-list"></i></button>
+  </div>
+  <select class="sort-sel" onchange="applyFilters()" id="sortSel">
+    <option value="rel">Relevancia</option>
+    <option value="price-asc">Precio: menor a mayor</option>
+    <option value="price-desc">Precio: mayor a menor</option>
+    <option value="name">Nombre A–Z</option>
+    <option value="disc">Con descuento primero</option>
+  </select>
+</div>
+
+<div class="store-body">
+  <aside class="sidebar">
+    <div class="sb-section">
+      <div class="sb-title">Condición <span class="sb-clear" onclick="resetCondition()">Todas</span></div>
+      <div class="condition-btns">
+        <button class="cond-btn all-active" id="condAll" onclick="setCondition('all',this)">Todas</button>
+        <button class="cond-btn" id="condNew" onclick="setCondition('new',this)">Nueva</button>
+        <button class="cond-btn" id="condUsed" onclick="setCondition('used',this)">Usada</button>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="sb-section">
+      <div class="sb-title">Categoría</div>
+      <div id="catFilters">
+        <div class="filter-item active" data-cat="all" onclick="toggleCat('all',this)"><div class="fi-left"><div class="fi-check"></div><span class="fi-label">Todas</span></div><span class="fi-cnt" id="cnt-all">...</span></div>
+        <div class="filter-item" data-cat="bicicleta" onclick="toggleCat('bicicleta',this)"><div class="fi-left"><div class="fi-check"></div><span class="fi-label">Bicicletas</span></div><span class="fi-cnt">2</span></div>
+        <div class="filter-item" data-cat="ropa" onclick="toggleCat('ropa',this)"><div class="fi-left"><div class="fi-check"></div><span class="fi-label">Ropa</span></div><span class="fi-cnt">1</span></div>
+        <div class="filter-item" data-cat="accesorio" onclick="toggleCat('accesorio',this)"><div class="fi-left"><div class="fi-check"></div><span class="fi-label">Accesorios</span></div><span class="fi-cnt">3</span></div>
+        <div class="filter-item" data-cat="gadget" onclick="toggleCat('gadget',this)"><div class="fi-left"><div class="fi-check"></div><span class="fi-label">Gadgets</span></div><span class="fi-cnt">1</span></div>
+        <div class="filter-item" data-cat="llanta" onclick="toggleCat('llanta',this)"><div class="fi-left"><div class="fi-check"></div><span class="fi-label">Llantas</span></div><span class="fi-cnt">1</span></div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="sb-section">
+      <div class="sb-title">Precio</div>
+      <div class="price-range-wrap">
+        <div class="price-vals"><span>Q30</span><span id="priceMaxLabel">Q12,000</span></div>
+        <input type="range" min="30" max="12000" value="12000" step="50" id="priceRange" oninput="updatePrice(this.value);applyFilters()"/>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="sb-section">
+      <div class="sb-title">Marca <span class="sb-clear" onclick="resetMarcas()">Limpiar</span></div>
+      <div class="marca-filter" id="marcaFilters">
+        <button class="mf-btn active" data-marca="all" onclick="toggleMarca('all',this)">Todas</button>
+        <button class="mf-btn" data-marca="GW" onclick="toggleMarca('GW',this)">GW</button>
+        <button class="mf-btn" data-marca="Magene" onclick="toggleMarca('Magene',this)">Magene</button>
+        <button class="mf-btn" data-marca="Vittoria" onclick="toggleMarca('Vittoria',this)">Vittoria</button>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="sb-section">
+      <div class="sb-title">Descuentos</div>
+      <div class="filter-item" id="filterDisc" onclick="toggleDiscount(this)"><div class="fi-left"><div class="fi-check"></div><span class="fi-label">Solo con descuento</span></div></div>
+    </div>
+  </aside>
+
+  <div class="products-area">
+    <div class="toolbar">
+      <p class="result-info">Mostrando <strong id="resultCount">...</strong> productos</p>
+      <div class="active-filters" id="activeTags"></div>
+    </div>
+    <div class="prod-grid" id="prodGrid">
+      <div class="loading-state" style="grid-column:1/-1;">
+        <div class="loading-spinner"></div>
+        <p>Cargando productos...</p>
+      </div>
+    </div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+</div>
+
+<script>
+let products = [];
+let activeCat='all', activeMarca='all', activeCondition='all', onlyDiscount=false, priceMax=12000, searchQ='', viewMode='grid', cart=0;
+
+function updatePrice(v){document.getElementById('priceMaxLabel').textContent='Q'+parseInt(v).toLocaleString();priceMax=parseInt(v);}
+function setView(mode){viewMode=mode;document.getElementById('btnGrid').classList.toggle('active',mode==='grid');document.getElementById('btnList').classList.toggle('active',mode==='list');document.getElementById('prodGrid').classList.toggle('list-view',mode==='list');renderProducts(getFiltered());}
+function toggleCat(cat,el){activeCat=cat;document.querySelectorAll('[data-cat]').forEach(e=>e.classList.remove('active'));el.classList.add('active');applyFilters();}
+function toggleMarca(marca,el){activeMarca=marca;document.querySelectorAll('[data-marca]').forEach(e=>e.classList.remove('active'));el.classList.add('active');applyFilters();}
+function setCondition(cond,btn){activeCondition=cond;document.getElementById('condAll').className='cond-btn'+(cond==='all'?' all-active':'');document.getElementById('condNew').className='cond-btn'+(cond==='new'?' new-active':'');document.getElementById('condUsed').className='cond-btn'+(cond==='used'?' used-active':'');applyFilters();}
+function resetCondition(){setCondition('all',null);}
+function resetMarcas(){activeMarca='all';document.querySelectorAll('[data-marca]').forEach(e=>e.classList.remove('active'));document.querySelector('[data-marca="all"]').classList.add('active');applyFilters();}
+function toggleDiscount(el){onlyDiscount=!onlyDiscount;el.classList.toggle('active',onlyDiscount);applyFilters();}
+
+function getFiltered(){
+  let list=[...products];
+  if(activeCat!=='all') list=list.filter(p=>p.cat===activeCat);
+  if(activeMarca!=='all') list=list.filter(p=>p.marca===activeMarca);
+  if(activeCondition!=='all') list=list.filter(p=>p.condicion===activeCondition);
+  if(onlyDiscount) list=list.filter(p=>p.descuento>0);
+  list=list.filter(p=>p.precio<=priceMax);
+  if(searchQ) list=list.filter(p=>p.name.toLowerCase().includes(searchQ)||p.marca.toLowerCase().includes(searchQ)||(p.desc||'').toLowerCase().includes(searchQ));
+  const sort=document.getElementById('sortSel').value;
+  if(sort==='price-asc') list.sort((a,b)=>a.precio-b.precio);
+  else if(sort==='price-desc') list.sort((a,b)=>b.precio-a.precio);
+  else if(sort==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
+  else if(sort==='disc') list.sort((a,b)=>b.descuento-a.descuento);
+  return list;
+}
+
+function applyFilters(){
+  searchQ=document.getElementById('searchInput').value.toLowerCase();
+  const filtered=getFiltered();
+  document.getElementById('resultCount').textContent=filtered.length;
+  renderActiveTags();
+  renderProducts(filtered);
+  renderPagination(filtered.length);
+}
+
+function renderActiveTags(){
+  const tags=[];
+  if(activeCat!=='all') tags.push({label:catLabel(activeCat),clear:()=>{activeCat='all';document.querySelectorAll('[data-cat]').forEach(e=>e.classList.remove('active'));document.querySelector('[data-cat="all"]').classList.add('active');applyFilters();}});
+  if(activeMarca!=='all') tags.push({label:activeMarca,clear:()=>{resetMarcas();}});
+  if(activeCondition!=='all') tags.push({label:activeCondition==='new'?'Nuevas':'Usadas',clear:()=>{resetCondition();}});
+  if(onlyDiscount) tags.push({label:'Con descuento',clear:()=>{onlyDiscount=false;document.getElementById('filterDisc').classList.remove('active');applyFilters();}});
+  const container=document.getElementById('activeTags');
+  container.innerHTML=tags.map((t,i)=>`<div class="af-tag" onclick="clearTag(${i})"><span>${t.label}</span><i class="ti ti-x"></i></div>`).join('');
+  window._tagClears=tags.map(t=>t.clear);
+}
+
+function clearTag(i){window._tagClears[i]();}
+function catLabel(c){return{bicicleta:'Bicicletas',ropa:'Ropa',accesorio:'Accesorios',gadget:'Gadgets',llanta:'Llantas'}[c]||c;}
+
+function renderProducts(list){
+  const grid=document.getElementById('prodGrid');
+  if(list.length===0){grid.innerHTML=`<div class="empty"><i class="ti ti-search-off"></i><h3>Sin resultados</h3><p>Probá con otros filtros</p></div>`;return;}
+  const isList=viewMode==='list';
+  grid.innerHTML=list.map(p=>{
+    const hasDisc=p.descuento>0;
+    const condBadge=p.condicion==='new'?'<span class="pb pb-new">Nueva</span>':'<span class="pb pb-used">Usada</span>';
+    const imgHtml=p.imagenUrl?`<img src="${p.imagenUrl}" style="max-height:130px;max-width:90%;object-fit:contain;display:block;margin:auto;">`:(p.emoji||'🚲');
+    if(isList){return `<div class="pc" onclick="openProduct('${p.id}')"><div class="pc-img" style="background:var(--carbon4)">${imgHtml}<div class="pc-badges"><span class="pb pb-brand">${p.marca}</span>${condBadge}</div>${hasDisc?`<span class="disc-tag">-${p.descuento}%</span>`:''}</div><div class="pc-body"><div class="pc-cat">${catLabel(p.cat)}</div><div class="pc-name">${p.name}</div><div class="pc-cat" style="color:var(--white3);font-size:11px;text-transform:none;letter-spacing:0;margin-top:4px;font-weight:300;">${p.desc||''}</div>${p.tallas&&p.tallas.length?`<div class="pc-tallas" style="margin-top:8px;">${p.tallas.map(t=>`<span class="talla">${t}</span>`).join('')}</div>`:''}</div><div class="pc-actions">${hasDisc?`<div class="list-old">Q${p.precioOriginal.toLocaleString()}</div>`:''}<div class="list-price${hasDisc?' disc':''}">Q${p.precio.toLocaleString()}</div><button class="btn-add" onclick="event.stopPropagation();addCart()"><i class="ti ti-plus"></i>Agregar</button></div></div>`;}
+    return `<div class="pc" onclick="openProduct('${p.id}')"><div class="pc-img">${imgHtml}<div class="pc-badges"><span class="pb pb-brand">${p.marca}</span>${condBadge}</div>${hasDisc?`<span class="disc-tag">-${p.descuento}%</span>`:''}<button class="fav-btn" onclick="event.stopPropagation()"><i class="ti ti-heart"></i></button></div><div class="pc-body"><div class="pc-cat">${catLabel(p.cat)}</div><div class="pc-name">${p.name}</div>${p.tallas&&p.tallas.length?`<div class="pc-tallas">${p.tallas.map(t=>`<span class="talla">${t}</span>`).join('')}</div>`:''}<div class="pc-footer"><div class="price-block">${hasDisc?`<span class="p-old">Q${p.precioOriginal.toLocaleString()}</span>`:''}<span class="p-main${hasDisc?' disc':''}">Q${p.precio.toLocaleString()}</span></div><button class="btn-add" onclick="event.stopPropagation();addCart()"><i class="ti ti-plus"></i>Agregar</button></div></div></div>`;
+  }).join('');
+  if(viewMode==='list') grid.classList.add('list-view'); else grid.classList.remove('list-view');
+}
+
+function renderPagination(total){
+  const pages=Math.ceil(total/9)||1;
+  document.getElementById('pagination').innerHTML=(pages>1?`<button class="page-btn"><i class="ti ti-chevron-left"></i></button>`:'')+Array.from({length:Math.min(pages,5)},(_,i)=>`<button class="page-btn${i===0?' active':''}">${i+1}</button>`).join('')+(pages>1?`<button class="page-btn"><i class="ti ti-chevron-right"></i></button>`:'');
+}
+
+function addCart(){cart++;document.getElementById('cartCount').textContent=cart;}
+function openProduct(id){window.location='producto.html';}
+
+async function cargarProductosSanity(){
+  try{
+    const {createClient}=await import('https://esm.sh/@sanity/client');
+    const client=createClient({projectId:'ii7zj7va',dataset:'production',useCdn:true,apiVersion:'2024-01-01'});
+    const prods=await client.fetch(`*[_type == "producto"]{_id,nombre,precio,precioOriginal,marca,categoria,condicion,descripcion,tallas,"imagenUrl":imagen.asset->url,disponible}`);
+    if(prods.length>0){
+      products=prods.map(p=>({
+        id:p._id,name:p.nombre,marca:p.marca,precio:p.precio,
+        precioOriginal:p.precioOriginal||null,cat:p.categoria,
+        condicion:p.condicion,emoji:'🚲',desc:p.descripcion,
+        tallas:p.tallas||[],
+        descuento:p.precioOriginal?Math.round((1-p.precio/p.precioOriginal)*100):0,
+        imagenUrl:p.imagenUrl||null,
+      }));
+      applyFilters();
+      document.getElementById('totalProds').textContent=prods.length;
+    } else {
+      document.getElementById('prodGrid').innerHTML=`<div class="empty"><i class="ti ti-inbox"></i><h3>Sin productos aún</h3><p>Pronto habrá productos disponibles</p></div>`;
+      document.getElementById('resultCount').textContent='0';
+      document.getElementById('totalProds').textContent='0';
+    }
+  } catch(e){
+    console.error('Error Sanity:',e);
+    document.getElementById('prodGrid').innerHTML=`<div class="empty"><i class="ti ti-wifi-off"></i><h3>Error al cargar</h3><p>Verificá tu conexión e intentá de nuevo</p></div>`;
+  }
+}
+cargarProductosSanity();
+</script>

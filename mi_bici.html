@@ -1,0 +1,462 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--carbon:#0e0e10;--carbon2:#141416;--carbon3:#1c1c1f;--carbon4:#242428;--carbon5:#2e2e33;--line:#ffffff0f;--line2:#ffffff18;--line3:#ffffff28;--cyan:#2ec4b6;--red:#e03030;--white:#f5f5f5;--white2:#a0a0a8;--white3:#5a5a62;}
+body{font-family:'DM Sans',sans-serif;background:var(--carbon);color:var(--white);}
+.nav{background:rgba(14,14,16,0.97);border-bottom:1px solid var(--line);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--white);}
+.nav-logo .ac{color:var(--cyan);}.nav-logo .sh{color:var(--red);font-size:14px;}
+.nav-links{display:flex;gap:1.25rem;list-style:none;}
+.nav-links a{color:var(--white2);text-decoration:none;font-size:11px;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;}
+.nav-links a.active{color:var(--white);}
+.btn-ghost{background:transparent;color:var(--white2);border:1px solid var(--line2);border-radius:6px;padding:6px 13px;font-family:'DM Sans',sans-serif;font-size:11px;cursor:pointer;}
+
+/* PROFILE HEADER */
+.profile-header{background:var(--carbon2);border-bottom:1px solid var(--line);padding:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+.ph-left{display:flex;align-items:center;gap:1.25rem;}
+.avatar{width:56px;height:56px;border-radius:50%;background:rgba(46,196,182,0.1);border:2px solid rgba(46,196,182,0.2);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--cyan);flex-shrink:0;}
+.ph-name{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--white);letter-spacing:1px;}
+.ph-email{font-size:12px;color:var(--white3);font-weight:300;margin-top:2px;}
+.ph-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(46,196,182,0.08);border:1px solid rgba(46,196,182,0.2);border-radius:20px;padding:3px 12px;font-size:11px;color:var(--cyan);font-weight:500;margin-top:6px;}
+.ph-stats{display:flex;gap:1.5rem;}
+.phs{text-align:center;}
+.phs-n{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--white);display:block;line-height:1;}
+.phs-l{font-size:10px;color:var(--white3);text-transform:uppercase;letter-spacing:0.8px;}
+
+/* LAYOUT */
+.account-layout{display:grid;grid-template-columns:200px 1fr;min-height:600px;}
+
+/* SIDEBAR NAV */
+.account-nav{background:var(--carbon2);border-right:1px solid var(--line);padding:1.25rem 0;}
+.an-section{margin-bottom:1.5rem;}
+.an-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--white3);padding:0 1.25rem;margin-bottom:0.625rem;}
+.an-item{display:flex;align-items:center;gap:10px;padding:8px 1.25rem;cursor:pointer;transition:all 0.2s;border-left:2px solid transparent;}
+.an-item:hover{background:rgba(255,255,255,0.03);}
+.an-item.active{background:rgba(46,196,182,0.04);border-left-color:var(--cyan);}
+.an-item i{font-size:16px;color:var(--white3);}
+.an-item.active i{color:var(--cyan);}
+.an-item span{font-size:13px;color:var(--white2);font-weight:400;}
+.an-item.active span{color:var(--white);}
+.an-badge{background:var(--red);color:white;border-radius:10px;padding:1px 6px;font-size:9px;font-weight:700;margin-left:auto;}
+
+/* CONTENT */
+.account-content{padding:1.5rem;}
+.tab-panel{display:none;}.tab-panel.active{display:block;}
+
+/* SECTION HEADER */
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--white);letter-spacing:1px;}
+.sec-title em{color:var(--cyan);font-style:normal;}
+.btn-add-bici{background:var(--cyan);color:var(--carbon);border:none;border-radius:7px;padding:8px 16px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:6px;}
+
+/* BICIS GRID */
+.bicis-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem;}
+.bici-card{background:var(--carbon3);border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:all 0.2s;}
+.bici-card:hover{border-color:var(--line2);}
+.bici-card.selected{border-color:rgba(46,196,182,0.3);}
+.bici-top{background:var(--carbon4);padding:1.25rem;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);}
+.bici-emoji{font-size:32px;}
+.bici-top-info{flex:1;}
+.bici-model{font-size:14px;font-weight:600;color:var(--white);}
+.bici-brand{font-size:11px;color:var(--white3);font-weight:300;margin-top:2px;}
+.bici-status{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600;}
+.bs-ok{background:rgba(46,196,182,0.1);color:var(--cyan);border:1px solid rgba(46,196,182,0.2);}
+.bs-service{background:rgba(240,165,0,0.1);color:#f0a500;border:1px solid rgba(240,165,0,0.2);}
+.bici-body{padding:1rem;}
+.bici-specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.bspec{background:var(--carbon4);border-radius:7px;padding:0.625rem;}
+.bspec-l{font-size:9px;color:var(--white3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:3px;}
+.bspec-v{font-size:12px;font-weight:500;color:var(--white);}
+
+/* HISTORIAL */
+.historial{background:var(--carbon3);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+.hist-header{background:var(--carbon4);padding:1rem 1.25rem;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
+.hist-title{font-size:14px;font-weight:600;color:var(--white);}
+.hist-filter{display:flex;gap:6px;}
+.hf-btn{background:transparent;border:1px solid var(--line2);border-radius:5px;padding:4px 10px;font-family:'DM Sans',sans-serif;font-size:10px;color:var(--white3);cursor:pointer;transition:all 0.2s;}
+.hf-btn.active{background:rgba(46,196,182,0.08);border-color:rgba(46,196,182,0.2);color:var(--cyan);}
+.hist-item{padding:1rem 1.25rem;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;transition:background 0.2s;cursor:pointer;}
+.hist-item:hover{background:rgba(255,255,255,0.02);}
+.hist-item:last-child{border-bottom:none;}
+.hi-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.hic-done{background:rgba(46,196,182,0.08);color:var(--cyan);}
+.hic-progress{background:rgba(240,165,0,0.08);color:#f0a500;}
+.hic-repair{background:rgba(224,48,48,0.08);color:var(--red);}
+.hi-info{flex:1;}
+.hi-title{font-size:13px;font-weight:500;color:var(--white);margin-bottom:3px;}
+.hi-meta{font-size:11px;color:var(--white3);font-weight:300;}
+.hi-right{text-align:right;}
+.hi-date{font-size:11px;color:var(--white3);font-weight:300;display:block;margin-bottom:4px;}
+.hi-badge{padding:2px 9px;border-radius:10px;font-size:10px;font-weight:600;}
+.hib-done{background:rgba(46,196,182,0.1);color:var(--cyan);}
+.hib-progress{background:rgba(240,165,0,0.1);color:#f0a500;}
+
+/* PEDIDOS */
+.orders-list{display:flex;flex-direction:column;gap:10px;}
+.order-card{background:var(--carbon3);border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+.oc-head{background:var(--carbon4);padding:0.875rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);}
+.oc-id{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--white);letter-spacing:1px;}
+.oc-date{font-size:11px;color:var(--white3);font-weight:300;margin-top:1px;}
+.oc-status{padding:3px 10px;border-radius:10px;font-size:10px;font-weight:600;}
+.os-shipped{background:rgba(46,196,182,0.1);color:var(--cyan);border:1px solid rgba(46,196,182,0.2);}
+.os-delivered{background:rgba(255,255,255,0.06);color:var(--white2);border:1px solid var(--line2);}
+.os-processing{background:rgba(240,165,0,0.1);color:#f0a500;border:1px solid rgba(240,165,0,0.2);}
+.oc-body{padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.oc-items{display:flex;gap:8px;}
+.oc-thumb{width:38px;height:38px;background:var(--carbon4);border:1px solid var(--line);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.oc-total{text-align:right;}
+.oc-t-label{font-size:10px;color:var(--white3);text-transform:uppercase;letter-spacing:0.5px;}
+.oc-t-val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--white);}
+.btn-reorder{background:transparent;border:1px solid var(--line2);border-radius:7px;padding:7px 14px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--white2);cursor:pointer;transition:all 0.2s;}
+.btn-reorder:hover{border-color:var(--line3);color:var(--white);}
+
+/* AJUSTES */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.setting-card{background:var(--carbon3);border:1px solid var(--line);border-radius:12px;padding:1.25rem;}
+.sc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.sc-label{font-size:13px;font-weight:600;color:var(--white);}
+.btn-edit{background:transparent;border:1px solid var(--line2);border-radius:6px;padding:5px 12px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--white2);cursor:pointer;}
+.setting-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);}
+.setting-row:last-child{border-bottom:none;}
+.sr-label{font-size:12px;color:var(--white3);font-weight:300;}
+.sr-val{font-size:12px;color:var(--white2);font-weight:400;}
+</style>
+
+<h2 class="sr-only">Mi cuenta — Mi Bici Oktobike Shop</h2>
+
+<nav class="nav">
+  <div class="nav-logo" onclick="window.location='index.html'" style="cursor:pointer;">OKTO<span class="ac">BIKE</span> <span class="sh">SHOP</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="tienda.html">Tienda</a></li>
+    <li><a href="taller.html">Taller</a></li>
+    <li><a href="#">Marcas</a></li>
+    <li><a href="mi_bici.html" class="active">Mi Bici</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-ghost" onclick="window.location='login.html'"><i class="ti ti-user" style="font-size:12px;margin-right:4px" aria-hidden="true"></i>Mi cuenta</button>
+    <button class="btn-cart" onclick="window.location='checkout.html'"><i class="ti ti-shopping-cart" aria-hidden="true"></i>Carrito<span class="cart-dot" id="cartCount">0</span></button>
+  </div>
+</nav>
+
+<!-- PROFILE HEADER -->
+<div class="profile-header">
+  <div class="ph-left">
+    <div class="avatar" id="userAvatar">?</div>
+    <div>
+      <div class="ph-name" id="userName">Mi cuenta</div>
+      <div class="ph-email" id="userEmail"></div>
+      <div class="ph-badge"><i class="ti ti-crown" style="font-size:11px" aria-hidden="true"></i>Club Oktobike · Próximamente</div>
+    </div>
+  </div>
+  <div class="ph-stats">
+    <div class="phs"><span class="phs-n">2</span><span class="phs-l">Bicicletas</span></div>
+    <div class="phs"><span class="phs-n">5</span><span class="phs-l">Servicios</span></div>
+    <div class="phs"><span class="phs-n">3</span><span class="phs-l">Pedidos</span></div>
+  </div>
+</div>
+
+<div class="account-layout">
+
+  <!-- NAV SIDEBAR -->
+  <nav class="account-nav" aria-label="Navegación de cuenta">
+    <div class="an-section">
+      <div class="an-label">Mi Bici</div>
+      <div class="an-item active" onclick="showPanel('bicis',this)">
+        <i class="ti ti-bike" aria-hidden="true"></i><span>Mis bicicletas</span>
+      </div>
+      <div class="an-item" onclick="showPanel('historial',this)">
+        <i class="ti ti-clipboard-list" aria-hidden="true"></i><span>Historial taller</span>
+        <span class="an-badge">1</span>
+      </div>
+    </div>
+    <div class="an-section">
+      <div class="an-label">Compras</div>
+      <div class="an-item" onclick="showPanel('pedidos',this)">
+        <i class="ti ti-package" aria-hidden="true"></i><span>Mis pedidos</span>
+      </div>
+      <div class="an-item" onclick="showPanel('favoritos',this)">
+        <i class="ti ti-heart" aria-hidden="true"></i><span>Favoritos</span>
+      </div>
+    </div>
+    <div class="an-section">
+      <div class="an-label">Cuenta</div>
+      <div class="an-item" onclick="showPanel('ajustes',this)">
+        <i class="ti ti-settings" aria-hidden="true"></i><span>Ajustes</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <div class="account-content">
+
+    <!-- MIS BICIS -->
+    <div class="tab-panel active" id="panel-bicis">
+      <div class="sec-head">
+        <div class="sec-title">MIS <em>BICICLETAS</em></div>
+        <button class="btn-add-bici"><i class="ti ti-plus" aria-hidden="true"></i>Agregar bici</button>
+      </div>
+      <div class="bicis-grid">
+        <div class="bici-card selected" onclick="selectBici(this)">
+          <div class="bici-top">
+            <div class="bici-emoji">🚴</div>
+            <div class="bici-top-info">
+              <div class="bici-model">Trek Marlin 5</div>
+              <div class="bici-brand">2023 · MTB · 29"</div>
+            </div>
+            <span class="bici-status bs-service">En taller</span>
+          </div>
+          <div class="bici-body">
+            <div class="bici-specs">
+              <div class="bspec"><div class="bspec-l">Color</div><div class="bspec-v">Azul</div></div>
+              <div class="bspec"><div class="bspec-l">Talla</div><div class="bspec-v">M (17")</div></div>
+              <div class="bspec"><div class="bspec-l">Último servicio</div><div class="bspec-v">03 Jun 2025</div></div>
+              <div class="bspec"><div class="bspec-l">Km recorridos</div><div class="bspec-v">~1,240 km</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="bici-card" onclick="selectBici(this)">
+          <div class="bici-top">
+            <div class="bici-emoji">🚵</div>
+            <div class="bici-top-info">
+              <div class="bici-model">Giant Talon 3</div>
+              <div class="bici-brand">2022 · MTB · 27.5"</div>
+            </div>
+            <span class="bici-status bs-ok">Al día</span>
+          </div>
+          <div class="bici-body">
+            <div class="bici-specs">
+              <div class="bspec"><div class="bspec-l">Color</div><div class="bspec-v">Negro</div></div>
+              <div class="bspec"><div class="bspec-l">Talla</div><div class="bspec-v">S (15")</div></div>
+              <div class="bspec"><div class="bspec-l">Último servicio</div><div class="bspec-v">28 May 2025</div></div>
+              <div class="bspec"><div class="bspec-l">Km recorridos</div><div class="bspec-v">~860 km</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTORIAL -->
+    <div class="tab-panel" id="panel-historial">
+      <div class="sec-head">
+        <div class="sec-title">HISTORIAL <em>TALLER</em></div>
+        <div class="hist-filter">
+          <button class="hf-btn active">Todas</button>
+          <button class="hf-btn">En proceso</button>
+          <button class="hf-btn">Completadas</button>
+        </div>
+      </div>
+      <div class="historial">
+        <div class="hist-header">
+          <span class="hist-title">5 servicios registrados</span>
+        </div>
+        <div class="hist-item">
+          <div class="hi-icon hic-progress"><i class="ti ti-tool" aria-hidden="true"></i></div>
+          <div class="hi-info">
+            <div class="hi-title">Servicio completo · Trek Marlin 5</div>
+            <div class="hi-meta">OKT-2025-0042 · Mecánico: Carlos R.</div>
+          </div>
+          <div class="hi-right">
+            <span class="hi-date">03 Jun 2025</span>
+            <span class="hi-badge hib-progress">En proceso</span>
+          </div>
+        </div>
+        <div class="hist-item">
+          <div class="hi-icon hic-done"><i class="ti ti-check" aria-hidden="true"></i></div>
+          <div class="hi-info">
+            <div class="hi-title">Servicio básico · Giant Talon 3</div>
+            <div class="hi-meta">OKT-2025-0038 · Mecánico: Luis M.</div>
+          </div>
+          <div class="hi-right">
+            <span class="hi-date">28 May 2025</span>
+            <span class="hi-badge hib-done">Completado</span>
+          </div>
+        </div>
+        <div class="hist-item">
+          <div class="hi-icon hic-done"><i class="ti ti-circle" aria-hidden="true"></i></div>
+          <div class="hi-info">
+            <div class="hi-title">Cambio de llantas · Trek Marlin 5</div>
+            <div class="hi-meta">OKT-2025-0031 · Llantas Maxxis Minion</div>
+          </div>
+          <div class="hi-right">
+            <span class="hi-date">10 Abr 2025</span>
+            <span class="hi-badge hib-done">Completado</span>
+          </div>
+        </div>
+        <div class="hist-item">
+          <div class="hi-icon hic-repair"><i class="ti ti-settings-2" aria-hidden="true"></i></div>
+          <div class="hi-info">
+            <div class="hi-title">Reparación derailleur · Trek Marlin 5</div>
+            <div class="hi-meta">OKT-2025-0018 · Cambio de cable</div>
+          </div>
+          <div class="hi-right">
+            <span class="hi-date">15 Feb 2025</span>
+            <span class="hi-badge hib-done">Completado</span>
+          </div>
+        </div>
+        <div class="hist-item">
+          <div class="hi-icon hic-done"><i class="ti ti-check" aria-hidden="true"></i></div>
+          <div class="hi-info">
+            <div class="hi-title">Diagnóstico inicial · Giant Talon 3</div>
+            <div class="hi-meta">OKT-2025-0005 · Revisión general</div>
+          </div>
+          <div class="hi-right">
+            <span class="hi-date">08 Ene 2025</span>
+            <span class="hi-badge hib-done">Completado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PEDIDOS -->
+    <div class="tab-panel" id="panel-pedidos">
+      <div class="sec-head"><div class="sec-title">MIS <em>PEDIDOS</em></div></div>
+      <div class="orders-list">
+        <div class="order-card">
+          <div class="oc-head">
+            <div><div class="oc-id">ORD-2025-083</div><div class="oc-date">05 Jun 2025</div></div>
+            <span class="oc-status os-shipped">En camino</span>
+          </div>
+          <div class="oc-body">
+            <div class="oc-items">
+              <div class="oc-thumb">🌸</div>
+              <div class="oc-thumb">🧤</div>
+            </div>
+            <div style="flex:1;font-size:12px;color:var(--white2);font-weight:300;">Enterizo Floreado + Guantes Largos</div>
+            <div class="oc-total"><div class="oc-t-label">Total</div><div class="oc-t-val">Q729</div></div>
+            <button class="btn-reorder">Ver detalle</button>
+          </div>
+        </div>
+        <div class="order-card">
+          <div class="oc-head">
+            <div><div class="oc-id">ORD-2025-051</div><div class="oc-date">20 Abr 2025</div></div>
+            <span class="oc-status os-delivered">Entregado</span>
+          </div>
+          <div class="oc-body">
+            <div class="oc-items"><div class="oc-thumb">⭕</div><div class="oc-thumb">⭕</div></div>
+            <div style="flex:1;font-size:12px;color:var(--white2);font-weight:300;">Llantas Vittoria Zaffiro Pro ×2</div>
+            <div class="oc-total"><div class="oc-t-label">Total</div><div class="oc-t-val">Q598</div></div>
+            <button class="btn-reorder">Volver a pedir</button>
+          </div>
+        </div>
+        <div class="order-card">
+          <div class="oc-head">
+            <div><div class="oc-id">ORD-2025-012</div><div class="oc-date">18 Ene 2025</div></div>
+            <span class="oc-status os-delivered">Entregado</span>
+          </div>
+          <div class="oc-body">
+            <div class="oc-items"><div class="oc-thumb">🧣</div></div>
+            <div style="flex:1;font-size:12px;color:var(--white2);font-weight:300;">Bandana FOX</div>
+            <div class="oc-total"><div class="oc-t-label">Total</div><div class="oc-t-val">Q60</div></div>
+            <button class="btn-reorder">Volver a pedir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAVORITOS -->
+    <div class="tab-panel" id="panel-favoritos">
+      <div class="sec-head"><div class="sec-title">MIS <em>FAVORITOS</em></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+        <div style="background:var(--carbon3);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;">
+          <div style="height:100px;background:var(--carbon4);display:flex;align-items:center;justify-content:center;font-size:36px;">🚴</div>
+          <div style="padding:0.75rem;">
+            <div style="font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">Bicicletas</div>
+            <div style="font-size:12px;font-weight:500;color:var(--white);margin-bottom:6px;">Mortirolo Tiagra</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--white);">Q11,799</div>
+          </div>
+        </div>
+        <div style="background:var(--carbon3);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;">
+          <div style="height:100px;background:var(--carbon4);display:flex;align-items:center;justify-content:center;font-size:36px;">📱</div>
+          <div style="padding:0.75rem;">
+            <div style="font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">Gadgets</div>
+            <div style="font-size:12px;font-weight:500;color:var(--white);margin-bottom:6px;">Ciclocomputador C506 SE</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--white);">Q849</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AJUSTES -->
+    <div class="tab-panel" id="panel-ajustes">
+      <div class="sec-head"><div class="sec-title">AJUSTES DE <em>CUENTA</em></div></div>
+      <div class="settings-grid">
+        <div class="setting-card">
+          <div class="sc-head"><span class="sc-label">Información personal</span><button class="btn-edit">Editar</button></div>
+          <div class="setting-row"><span class="sr-label">Nombre</span><span class="sr-val">Juan Rodríguez</span></div>
+          <div class="setting-row"><span class="sr-label">Correo</span><span class="sr-val">juan@gmail.com</span></div>
+          <div class="setting-row"><span class="sr-label">Teléfono</span><span class="sr-val">+502 5555-1234</span></div>
+          <div class="setting-row"><span class="sr-label">Ciudad</span><span class="sr-val">Guatemala</span></div>
+        </div>
+        <div class="setting-card">
+          <div class="sc-head"><span class="sc-label">Notificaciones</span><button class="btn-edit">Configurar</button></div>
+          <div class="setting-row"><span class="sr-label">WhatsApp</span><span class="sr-val" style="color:var(--cyan);">Activo</span></div>
+          <div class="setting-row"><span class="sr-label">Email</span><span class="sr-val" style="color:var(--cyan);">Activo</span></div>
+          <div class="setting-row"><span class="sr-label">Taller updates</span><span class="sr-val" style="color:var(--cyan);">Activo</span></div>
+          <div class="setting-row"><span class="sr-label">Ofertas</span><span class="sr-val" style="color:var(--white3);">Inactivo</span></div>
+        </div>
+        <div class="setting-card">
+          <div class="sc-head"><span class="sc-label">Seguridad</span><button class="btn-edit">Cambiar</button></div>
+          <div class="setting-row"><span class="sr-label">Contraseña</span><span class="sr-val">••••••••</span></div>
+          <div class="setting-row"><span class="sr-label">Último acceso</span><span class="sr-val">07 Jun 2025</span></div>
+        </div>
+        <div class="setting-card">
+          <div class="sc-head"><span class="sc-label">Membresía</span></div>
+          <div style="background:rgba(46,196,182,0.04);border:1px solid rgba(46,196,182,0.1);border-radius:9px;padding:1rem;text-align:center;">
+            <i class="ti ti-crown" style="font-size:24px;color:var(--cyan);display:block;margin-bottom:8px;" aria-hidden="true"></i>
+            <div style="font-size:12px;color:var(--white2);font-weight:300;margin-bottom:10px;">Club Oktobike próximamente disponible</div>
+            <button style="background:var(--cyan);color:var(--carbon);border:none;border-radius:6px;padding:7px 16px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;">Notificarme</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCoouJb87PNNMTopFXnDGYkdfiIU83QGJ4",
+  authDomain: "oktobike.firebaseapp.com",
+  projectId: "oktobike",
+  storageBucket: "oktobike.firebasestorage.app",
+  messagingSenderId: "918007625565",
+  appId: "1:918007625565:web:e98cb58c9ccfe17e2c5ab4"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const name = user.displayName || user.email.split('@')[0];
+    const initials = name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('userAvatar').textContent = initials;
+    document.getElementById('userName').textContent = name.toUpperCase();
+    document.getElementById('userEmail').textContent = user.email;
+  } else {
+    window.location = 'login.html';
+  }
+});
+
+window.cerrarSesion = async function(){
+  await signOut(auth);
+  window.location = 'login.html';
+}
+
+window.showPanel = function(id,el){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.an-item').forEach(a=>a.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  el.classList.add('active');
+}
+
+window.selectBici = function(card){
+  document.querySelectorAll('.bici-card').forEach(c=>c.classList.remove('selected'));
+  card.classList.add('selected');
+}
+</script>
