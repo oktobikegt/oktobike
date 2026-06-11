@@ -32,4 +32,25 @@ exports.handler = async (event) => {
     });
 
     const data = await response.json();
-    console.log('STATUS:',
+    console.log('STATUS:', response.status);
+    console.log('RECURRENTE RESPONSE:', JSON.stringify(data));
+
+    if (data.checkout_url) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ checkout_url: data.checkout_url })
+      };
+    } else {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Error de Recurrente', details: data })
+      };
+    }
+  } catch (e) {
+    console.log('ERROR:', e.message);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: e.message })
+    };
+  }
+};
