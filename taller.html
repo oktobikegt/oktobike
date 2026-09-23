@@ -270,85 +270,12 @@ select.form-input option{background:var(--carbon4);}
     <button class="btn-track" onclick="showTracking()"><i class="ti ti-search" style="margin-right:5px" aria-hidden="true"></i>Rastrear</button>
   </div>
 
-  <div id="trackingResults" style="display:none;">
+  <div id="trackingResults" style="display:none;"></div>
 
-    <div class="order-card">
-      <div class="oc-header">
-        <div>
-          <div class="oc-id">OKT-2025-0042</div>
-          <div class="oc-meta">Ingresó: 03 Jun 2025 · Mecánico: Carlos R.</div>
-        </div>
-        <span class="status-badge s-progress">En proceso</span>
-      </div>
-      <div class="oc-body">
-        <div class="bici-info">
-          <div class="bici-icon">🚴</div>
-          <div>
-            <div class="bici-name">Trek Marlin 5 — 2023</div>
-            <div class="bici-detail">MTB 29" · Azul · S/N: TRK-2023-881</div>
-          </div>
-        </div>
-
-        <div class="progress-steps">
-          <div class="step done">
-            <div class="step-circle"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i></div>
-            <div class="step-label">Recibida</div>
-            <div class="step-time">03 Jun · 9am</div>
-          </div>
-          <div class="step done">
-            <div class="step-circle"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i></div>
-            <div class="step-label">Diagnóstico</div>
-            <div class="step-time">03 Jun · 11am</div>
-          </div>
-          <div class="step active">
-            <div class="step-circle"><i class="ti ti-tool" style="font-size:12px" aria-hidden="true"></i></div>
-            <div class="step-label">En reparación</div>
-            <div class="step-time">En curso</div>
-          </div>
-          <div class="step">
-            <div class="step-circle">4</div>
-            <div class="step-label">Control de calidad</div>
-            <div class="step-time">Pendiente</div>
-          </div>
-          <div class="step">
-            <div class="step-circle">5</div>
-            <div class="step-label">Lista para retirar</div>
-            <div class="step-time">Estimado: 06 Jun</div>
-          </div>
-        </div>
-
-        <div class="oc-notes">
-          <div class="oc-notes-label">Notas del mecánico</div>
-          <div class="oc-notes-text">Se detectó desgaste en pastillas de freno trasero y desalineación del derailleur. Se solicitó aprobación para cambio de pastillas (Q85). Cliente aprobó vía WhatsApp.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="order-card">
-      <div class="oc-header">
-        <div>
-          <div class="oc-id">OKT-2025-0038</div>
-          <div class="oc-meta">Ingresó: 28 May 2025 · Mecánico: Luis M.</div>
-        </div>
-        <span class="status-badge s-done">Entregada</span>
-      </div>
-      <div class="oc-body">
-        <div class="bici-info">
-          <div class="bici-icon">🚵</div>
-          <div>
-            <div class="bici-name">Giant Talon 3 — 2022</div>
-            <div class="bici-detail">MTB 27.5" · Negro · Servicio básico</div>
-          </div>
-        </div>
-        <div class="progress-steps">
-          <div class="step done"><div class="step-circle"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i></div><div class="step-label">Recibida</div></div>
-          <div class="step done"><div class="step-circle"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i></div><div class="step-label">Diagnóstico</div></div>
-          <div class="step done"><div class="step-circle"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i></div><div class="step-label">En reparación</div></div>
-          <div class="step done"><div class="step-circle"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i></div><div class="step-label">Control calidad</div></div>
-          <div class="step done"><div class="step-circle"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i></div><div class="step-label">Entregada</div></div>
-        </div>
-      </div>
-    </div>
+  <div id="trackingNotFound" style="display:none;text-align:center;padding:3rem;color:var(--white3);">
+    <i class="ti ti-mood-empty" style="font-size:40px;display:block;margin-bottom:1rem;" aria-hidden="true"></i>
+    <p style="font-size:14px;font-weight:500;color:var(--white2);margin-bottom:6px;">No encontramos ninguna orden con ese código</p>
+    <p style="font-size:12px;font-weight:300;">Revisá que esté escrito igual a como te lo dimos, por ejemplo OK-00351</p>
   </div>
 
   <div id="trackingEmpty" style="text-align:center;padding:3rem;color:var(--white3);">
@@ -430,11 +357,100 @@ function selectHora(btn){
   document.querySelectorAll('#horarios button').forEach(b=>{b.style.background='transparent';b.style.color='var(--white2)';b.style.fontWeight='400';});
   btn.style.background='var(--cyan)';btn.style.color='var(--carbon)';btn.style.fontWeight='600';
 }
-function showTracking(){
-  const input=document.getElementById('trackInput').value.trim();
-  if(!input){ alert('Ingresá tu número de orden o correo'); return; }
-  document.getElementById('trackingEmpty').style.display='none';
-  document.getElementById('trackingResults').style.display='block';
+const STATUS_BADGE = {
+  falta_aprobacion: 's-waiting',
+  pendiente: 's-progress',
+  en_progreso: 's-progress',
+  terminado: 's-ready',
+  entregado: 's-done',
+  cancelado: 's-done',
+};
+
+function fmtFecha(iso){
+  if(!iso) return '';
+  const [y,m,d]=iso.split('-');
+  const meses=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return `${d} ${meses[parseInt(m,10)-1]} ${y}`;
+}
+
+function renderOrden(o){
+  const badgeClase = STATUS_BADGE[o.estado] || 's-progress';
+  const biciNombre = [o.bici.marca, o.bici.modelo].filter(Boolean).join(' ') || 'Tu bicicleta';
+  const biciDetalle = [o.bici.tipo, o.bici.talla, o.bici.color].filter(Boolean).join(' · ');
+
+  let pasosHtml = '';
+  if (o.pasos) {
+    pasosHtml = `<div class="progress-steps">${o.pasos.map(p=>`
+      <div class="step ${p.estado==='hecho'?'done':p.estado==='activo'?'active':''}">
+        <div class="step-circle">${p.estado==='hecho'?'<i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i>':''}</div>
+        <div class="step-label">${p.label}</div>
+      </div>`).join('')}</div>`;
+  } else {
+    pasosHtml = `<div style="font-size:12px;color:var(--white2);margin-bottom:1.25rem;">${o.estado_label}</div>`;
+  }
+
+  let notasHtml = '';
+  if (o.observaciones) {
+    notasHtml = `<div class="oc-notes"><div class="oc-notes-label">Notas del taller</div><div class="oc-notes-text">${o.observaciones}</div></div>`;
+  }
+
+  return `
+    <div class="order-card">
+      <div class="oc-header">
+        <div>
+          <div class="oc-id">${o.numero_boleta}</div>
+          <div class="oc-meta">${o.fecha_entrada ? 'Ingresó: '+fmtFecha(o.fecha_entrada) : ''}</div>
+        </div>
+        <span class="status-badge ${badgeClase}">${o.estado_label}</span>
+      </div>
+      <div class="oc-body">
+        <div class="bici-info">
+          <div class="bici-icon">🚲</div>
+          <div>
+            <div class="bici-name">${biciNombre}</div>
+            <div class="bici-detail">${biciDetalle}</div>
+          </div>
+        </div>
+        ${pasosHtml}
+        ${notasHtml}
+      </div>
+    </div>`;
+}
+
+async function showTracking(){
+  const codigo=document.getElementById('trackInput').value.trim();
+  const btn=document.querySelector('.btn-track');
+  const resultsEl=document.getElementById('trackingResults');
+  const emptyEl=document.getElementById('trackingEmpty');
+  const notFoundEl=document.getElementById('trackingNotFound');
+
+  if(!codigo){ alert('Ingresá tu número de orden'); return; }
+
+  const textoOriginal=btn.innerHTML;
+  btn.textContent='Buscando...';
+  btn.disabled=true;
+  emptyEl.style.display='none';
+  notFoundEl.style.display='none';
+  resultsEl.style.display='none';
+
+  try {
+    const res = await fetch(`/.netlify/functions/rastrear?codigo=${encodeURIComponent(codigo)}`);
+    if (res.status === 404) {
+      notFoundEl.style.display='block';
+      return;
+    }
+    if (!res.ok) throw new Error('No se pudo consultar el estado ahora mismo.');
+
+    const orden = await res.json();
+    resultsEl.innerHTML = renderOrden(orden);
+    resultsEl.style.display='block';
+  } catch(e) {
+    alert(e.message || 'No pudimos consultar el estado. Intenta de nuevo en un momento.');
+    emptyEl.style.display='block';
+  } finally {
+    btn.innerHTML=textoOriginal;
+    btn.disabled=false;
+  }
 }
 
 async function confirmarCita(){
